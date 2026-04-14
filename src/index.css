@@ -1,0 +1,90 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* ------------------------------------------------------------------ */
+/* Global base                                                         */
+/* ------------------------------------------------------------------ */
+:root {
+  color-scheme: dark;
+}
+
+html,
+body,
+#root {
+  height: 100%;
+  background: #000;
+}
+
+body {
+  font-family: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI",
+    "Noto Sans JP", "Hiragino Sans", sans-serif;
+  color: #f6e8c8;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  overflow: hidden;
+}
+
+html[lang="ja"] body {
+  font-family: "Noto Sans JP", "Hiragino Sans", "Yu Gothic", "Inter",
+    sans-serif;
+  letter-spacing: 0.01em;
+}
+
+/* ------------------------------------------------------------------ */
+/* Premium fintech utilities                                           */
+/* ------------------------------------------------------------------ */
+@layer utilities {
+  .gold-text {
+    background: linear-gradient(135deg, #ffe08a 0%, #f5c354 50%, #b2873a 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    color: transparent;
+  }
+
+  .bg-rocks {
+    background:
+      radial-gradient(ellipse at 30% 80%, rgba(139, 90, 32, 0.55), transparent 55%),
+      radial-gradient(ellipse at 80% 70%, rgba(92, 58, 20, 0.6), transparent 50%),
+      radial-gradient(ellipse at 20% 30%, rgba(60, 40, 15, 0.7), transparent 60%),
+      radial-gradient(circle at 60% 40%, rgba(180, 130, 60, 0.25), transparent 40%),
+      linear-gradient(180deg, #0a0704 0%, #1a0f06 40%, #2a1a0a 100%);
+  }
+
+  .glass {
+    background: rgba(18, 12, 6, 0.78);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+  }
+
+  .no-scrollbar::-webkit-scrollbar {
+    width: 0;
+    height: 0;
+  }
+}
+
+/* Inputs */
+input,
+textarea,
+button {
+  font-family: inherit;
+  -webkit-tap-highlight-color: transparent;
+}
+
+/* Hide number input spinners */
+input[type="number"]::-webkit-inner-spin-button,
+input[type="number"]::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+input[type="number"] {
+  -moz-appearance: textfield;
+}
+
+/* Subtle focus ring, matched to gold accent */
+*:focus-visible {
+  outline: 2px solid rgba(245, 195, 84, 0.5);
+  outline-offset: 2px;
+  border-radius: 4px;
+}
