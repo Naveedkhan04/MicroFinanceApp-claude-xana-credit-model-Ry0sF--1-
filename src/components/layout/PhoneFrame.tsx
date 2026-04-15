@@ -49,7 +49,12 @@ export const PhoneFrame: React.FC<Props> = ({
       <div className="mx-auto my-1 h-[5px] w-28 rounded-full bg-neutral-300/80" />
 
       {!bare && (
-        <TopBar title={title} onCancel={onCancel} hideCancel={hideCancel} right={topBarRight} />
+        <TopBar
+          title={title}
+          onCancel={onCancel}
+          hideCancel={hideCancel ?? Boolean(bottomNav)}
+          right={topBarRight}
+        />
       )}
 
       {/* Content */}

@@ -54,10 +54,11 @@ export const LenderHome: React.FC = () => {
     <PhoneFrame title={t("nav.lender.home")} hideCancel topBarRight={<LanguageSwitcher />} bottomNav={<LenderNav />}>
       <motion.div initial={{ opacity: 0, y: 8 }} animate={{ opacity: 1, y: 0 }}>
         <BalanceCard
-          label={t("lender.home.totalBalance")}
           amount={formatCurrency(ov.totalBalance, "USD", lang).replace(/[^\d.,]/g, "")}
           sublabel={t("lender.home.available")}
           subvalue={formatCurrency(ov.availableToWithdraw, "USD", lang)}
+          align="right"
+          bold
         />
 
         {firstTime ? (

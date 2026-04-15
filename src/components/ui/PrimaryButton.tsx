@@ -21,17 +21,28 @@ export const PrimaryButton: React.FC<Props> = ({
   ...rest
 }) => {
   const base =
-    "inline-flex items-center justify-center gap-2 rounded-pill px-6 py-[14px] text-[15px] font-semibold transition-all active:scale-[0.98] disabled:opacity-50 disabled:cursor-not-allowed disabled:active:scale-100";
+    "mx-auto inline-flex h-[64px] w-full max-w-[343px] items-center justify-center gap-2 px-6 transition-all active:scale-[0.98] disabled:opacity-50 disabled:cursor-not-allowed disabled:active:scale-100";
+  const goldGradient =
+    "linear-gradient(88deg, #D09635 4.35%, #E5B057 18.75%, #D28E1F 35.38%, #AD7211 65.92%, #E5B057 83.64%, #D09635 96.49%)";
   const variants: Record<string, string> = {
-    gold: "bg-gold-gradient text-white",
-    outline:
-      "bg-transparent border border-gold text-gold hover:bg-gold/10",
+    gold: "text-white",
+    outline: "bg-transparent border border-gold text-gold hover:bg-gold/10",
     ghost: "bg-surface text-text hover:bg-surface-raised",
   };
 
   return (
     <button
       className={clsx(base, variants[variant], fullWidth && "w-full", className)}
+      style={{
+        borderRadius: 62,
+        fontFamily: "Inter, sans-serif",
+        fontSize: 18,
+        fontWeight: 600,
+        lineHeight: "140%",
+        letterSpacing: "-0.36px",
+        textAlign: "center",
+        ...(variant === "gold" ? { background: goldGradient, color: "#FFF" } : null),
+      }}
       disabled={disabled || loading}
       {...rest}
     >

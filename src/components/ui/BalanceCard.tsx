@@ -10,6 +10,8 @@ interface Props {
   subvalue?: string;
   className?: string;
   centered?: boolean;
+  align?: "left" | "center" | "right";
+  bold?: boolean;
 }
 
 export const BalanceCard: React.FC<Props> = ({
@@ -20,12 +22,21 @@ export const BalanceCard: React.FC<Props> = ({
   subvalue,
   className,
   centered = true,
-}) => (
-  <Card className={clsx("py-6", centered && "text-center", className)}>
+  align,
+  bold = true,
+}) => {
+  const resolvedAlign = align ?? (centered ? "center" : "left");
+  const justify =
+    resolvedAlign === "right" ? "justify-end" : resolvedAlign === "left" ? "justify-start" : "justify-center";
+  const textAlignCls =
+    resolvedAlign === "right" ? "text-right" : resolvedAlign === "left" ? "text-left" : "text-center";
+  const weightCls = bold ? "font-bold" : "font-light";
+  return (
+  <Card className={clsx("py-6", textAlignCls, className)}>
     {label && <div className="mb-1 text-[13px] text-text-muted">{label}</div>}
-    <div className="flex items-baseline justify-center gap-1">
-      <span className="text-[26px] font-light text-gold-dim">{currency}</span>
-      <span className="gold-text text-[40px] font-light tracking-tight">{amount}</span>
+    <div className={clsx("flex items-baseline gap-1", justify)}>
+      <span className={clsx("text-[26px] text-gold-dim", weightCls)}>{currency}</span>
+      <span className={clsx("gold-text text-[40px] tracking-tight", weightCls)}>{amount}</span>
     </div>
     {(sublabel || subvalue) && (
       <>
@@ -37,4 +48,5 @@ export const BalanceCard: React.FC<Props> = ({
       </>
     )}
   </Card>
-);
+  );
+};

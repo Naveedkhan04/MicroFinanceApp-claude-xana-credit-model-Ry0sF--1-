@@ -22,19 +22,31 @@ export const AmountInput: React.FC<Props> = ({
   inputMode = "decimal",
   className,
 }) => {
+  const goldGradient =
+    "linear-gradient(88deg, #D09635 4.35%, #E5B057 18.75%, #D28E1F 35.38%, #AD7211 65.92%, #E5B057 83.64%, #D09635 96.49%)";
   return (
     <div
       className={clsx(
-        "flex items-center overflow-hidden rounded-pill bg-white shadow-inner",
+        "flex h-[56px] items-center overflow-hidden bg-white shadow-inner",
         disabled && "opacity-60",
         className,
       )}
+      style={{ borderRadius: 62 }}
     >
       {token && (
         <button
           type="button"
           tabIndex={-1}
-          className="bg-gold text-[#3B2608] font-bold px-5 py-3 text-[15px] rounded-pill m-1"
+          className="m-1 inline-flex h-[48px] items-center justify-center px-6 text-white"
+          style={{
+            background: goldGradient,
+            borderRadius: 62,
+            fontFamily: "Inter, sans-serif",
+            fontSize: 18,
+            fontWeight: 600,
+            lineHeight: "140%",
+            letterSpacing: "-0.36px",
+          }}
         >
           {token}
         </button>
@@ -47,9 +59,16 @@ export const AmountInput: React.FC<Props> = ({
         placeholder={placeholder}
         disabled={disabled}
         className={clsx(
-          "flex-1 bg-transparent px-5 py-3 text-[17px] text-[#222] outline-none placeholder:text-neutral-400",
+          "flex-1 bg-transparent px-5 text-[#222] outline-none placeholder:text-neutral-400",
           align === "right" ? "text-right" : "text-left",
         )}
+        style={{
+          fontFamily: "Inter, sans-serif",
+          fontSize: 18,
+          fontWeight: 600,
+          lineHeight: "140%",
+          letterSpacing: "-0.36px",
+        }}
       />
     </div>
   );

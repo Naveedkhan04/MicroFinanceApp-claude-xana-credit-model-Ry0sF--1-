@@ -27,6 +27,9 @@ export const TopBar: React.FC<Props> = ({
         className,
       )}
     >
+      <h1 className="pointer-events-none absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 whitespace-nowrap text-[22px] font-semibold text-gold uppercase">
+        {title ?? t("app.brand")}
+      </h1>
       {!hideCancel ? (
         <button
           type="button"
@@ -38,9 +41,6 @@ export const TopBar: React.FC<Props> = ({
       ) : (
         <span className="w-[54px]" />
       )}
-      <h1 className="text-center text-[22px] font-semibold text-gold uppercase">
-        {title ?? t("app.brand")}
-      </h1>
       {right ?? (
         <button
           type="button"

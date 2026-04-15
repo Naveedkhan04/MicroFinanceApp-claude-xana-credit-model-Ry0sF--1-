@@ -2,7 +2,6 @@ import React, { useEffect, useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { PhoneFrame } from "../../components/layout/PhoneFrame";
 import { PrimaryButton } from "../../components/ui/PrimaryButton";
-import { Card } from "../../components/ui/Card";
 import { useI18n } from "../../i18n";
 import { useApp } from "../../context/AppContext";
 import { auth } from "../../data/services";
@@ -87,23 +86,31 @@ export const OTPLogin: React.FC = () => {
     );
 
   return (
-    <PhoneFrame onCancel={() => navigate("/borrower/welcome")} footer={footer}>
+    <PhoneFrame hideCancel footer={footer}>
       <div className="mt-2 flex flex-col gap-5">
-        <h1 className="text-center text-[24px] font-semibold text-gold">
-          {step === "phone" ? t("borrower.welcome.continue") : t("borrower.otp.title")}
-        </h1>
+        {step === "code" && (
+          <h1 className="text-center text-[24px] font-semibold text-gold">
+            {t("borrower.otp.title")}
+          </h1>
+        )}
 
         {step === "phone" ? (
-          <Card>
-            <label className="mb-2 block text-[13px] text-text-muted">{t("borrower.otp.phoneLabel")}</label>
-            <input
-              type="tel"
-              value={phone}
-              onChange={(e) => setPhone(e.target.value)}
-              className="w-full bg-transparent text-[20px] tracking-wider text-text outline-none"
-              placeholder="+252 63 123 4567"
-            />
-          </Card>
+          <div>
+            <label className="mb-2 ml-2 block text-[13px] text-text-muted">{t("borrower.otp.phoneLabel")}</label>
+            <div
+              className="flex h-[56px] items-center overflow-hidden bg-white shadow-inner"
+              style={{ borderRadius: 62 }}
+            >
+              <input
+                type="tel"
+                value={phone}
+                onChange={(e) => setPhone(e.target.value)}
+                placeholder="+252 63 123 4567"
+                className="flex-1 bg-transparent px-5 text-[#222] outline-none placeholder:text-neutral-400"
+                style={{ fontFamily: "Inter, sans-serif", fontSize: 18, fontWeight: 600, letterSpacing: "-0.36px" }}
+              />
+            </div>
+          </div>
         ) : (
           <>
             <p className="text-center text-[13px] text-text-muted">

@@ -1,76 +1,98 @@
 import React from "react";
 
-const I: React.FC<{ d: string; extra?: React.ReactNode }> = ({ d, extra }) => (
-  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2} strokeLinecap="round" strokeLinejoin="round">
-    <path d={d} />
-    {extra}
+const Svg: React.FC<{ children: React.ReactNode }> = ({ children }) => (
+  <svg
+    viewBox="0 0 24 24"
+    fill="none"
+    stroke="currentColor"
+    strokeWidth={1.8}
+    strokeLinecap="round"
+    strokeLinejoin="round"
+  >
+    {children}
   </svg>
 );
 
-export const HomeIcon = () => <I d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z" />;
-export const SwapIcon = () => (
-  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2} strokeLinecap="round" strokeLinejoin="round">
-    <path d="M17 1l4 4-4 4" />
-    <path d="M3 11V9a4 4 0 0 1 4-4h14" />
-    <path d="M7 23l-4-4 4-4" />
-    <path d="M21 13v2a4 4 0 0 1-4 4H3" />
-  </svg>
+export const HomeIcon = () => (
+  <Svg>
+    <path d="M3 10.5 12 3l9 7.5" />
+    <path d="M5 9.5V20a1 1 0 0 0 1 1h4v-6h4v6h4a1 1 0 0 0 1-1V9.5" />
+  </Svg>
 );
-export const EarnIcon = () => (
-  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2} strokeLinecap="round" strokeLinejoin="round">
-    <path d="M3 17l6-6 4 4 7-7" />
-    <path d="M14 8h6v6" />
-  </svg>
-);
-export const PortfolioIcon = () => (
-  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2} strokeLinecap="round" strokeLinejoin="round">
-    <path d="M12 2a10 10 0 1010 10" />
-    <path d="M12 2v10h10" />
-  </svg>
-);
-export const HistoryIcon = () => (
-  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2} strokeLinecap="round" strokeLinejoin="round">
-    <path d="M3 3v6h6" />
-    <path d="M3 9a9 9 0 106-7" />
-    <path d="M12 7v5l3 2" />
-  </svg>
-);
-export const WalletIcon = () => (
-  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2} strokeLinecap="round" strokeLinejoin="round">
-    <rect x="2" y="6" width="20" height="14" rx="2" />
-    <path d="M16 12h3" />
-  </svg>
-);
-export const ProfileIcon = () => (
-  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2} strokeLinecap="round" strokeLinejoin="round">
-    <circle cx="12" cy="8" r="4" />
-    <path d="M4 21a8 8 0 0116 0" />
-  </svg>
-);
+
 export const BorrowIcon = () => (
-  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2} strokeLinecap="round" strokeLinejoin="round">
+  <Svg>
     <path d="M12 3v18" />
-    <path d="M17 8a5 5 0 00-10 0" />
-    <path d="M7 16a5 5 0 0010 0" />
-  </svg>
+    <path d="M17 6H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6" />
+  </Svg>
 );
+
 export const RepayIcon = () => (
-  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2} strokeLinecap="round" strokeLinejoin="round">
-    <path d="M20 12a8 8 0 10-3 6.2L20 21" />
-    <path d="M20 16v5h-5" />
-  </svg>
+  <Svg>
+    <path d="M21 12a9 9 0 1 1-3.5-7.1" />
+    <path d="M21 4v5h-5" />
+    <path d="M12 7v5l3 2" />
+  </Svg>
 );
+
+export const HistoryIcon = () => (
+  <Svg>
+    <circle cx="12" cy="12" r="9" />
+    <path d="M12 7v5l3.5 2" />
+  </Svg>
+);
+
+export const ProfileIcon = () => (
+  <Svg>
+    <circle cx="12" cy="8" r="3.8" />
+    <path d="M4.5 20.5a7.5 7.5 0 0 1 15 0" />
+  </Svg>
+);
+
+export const SwapIcon = () => (
+  <Svg>
+    <path d="M7 4v16" />
+    <path d="m3 8 4-4 4 4" />
+    <path d="M17 20V4" />
+    <path d="m21 16-4 4-4-4" />
+  </Svg>
+);
+
+export const EarnIcon = () => (
+  <Svg>
+    <path d="M3 17 9 11l4 4 8-8" />
+    <path d="M14 7h7v7" />
+  </Svg>
+);
+
+export const PortfolioIcon = () => (
+  <Svg>
+    <path d="M4 7h16v12a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1z" />
+    <path d="M8 7V5a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2" />
+    <path d="M4 12h16" />
+  </Svg>
+);
+
+export const WalletIcon = () => (
+  <Svg>
+    <path d="M3 7a2 2 0 0 1 2-2h12v4" />
+    <path d="M3 7v12a2 2 0 0 0 2 2h15a1 1 0 0 0 1-1v-3" />
+    <path d="M21 11H17a2 2 0 1 0 0 4h4z" />
+  </Svg>
+);
+
 export const DepositIcon = () => (
-  <svg className="h-5 w-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2} strokeLinecap="round" strokeLinejoin="round">
-    <path d="M12 3v14" />
-    <path d="M6 13l6 6 6-6" />
-    <path d="M4 21h16" />
-  </svg>
+  <Svg>
+    <path d="M12 4v11" />
+    <path d="m7 10 5 5 5-5" />
+    <path d="M4 20h16" />
+  </Svg>
 );
+
 export const WithdrawIcon = () => (
-  <svg className="h-5 w-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2} strokeLinecap="round" strokeLinejoin="round">
-    <path d="M12 21V7" />
-    <path d="M6 11l6-6 6 6" />
-    <path d="M4 3h16" />
-  </svg>
+  <Svg>
+    <path d="M12 20V9" />
+    <path d="m7 14 5-5 5 5" />
+    <path d="M4 4h16" />
+  </Svg>
 );
