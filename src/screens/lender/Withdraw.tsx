@@ -9,6 +9,7 @@ import { Card } from "../../components/ui/Card";
 import { PrimaryButton } from "../../components/ui/PrimaryButton";
 import { Chip } from "../../components/ui/Chip";
 import { Skeleton } from "../../components/ui/Skeleton";
+import { StatusDialog } from "../../components/ui/StatusDialog";
 import { lenderApi } from "../../data/services";
 import { formatCurrency, useI18n } from "../../i18n";
 import { useApp } from "../../context/AppContext";
@@ -22,6 +23,9 @@ export const Withdraw: React.FC = () => {
   const [amount, setAmount] = useState("");
   const [speed, setSpeed] = useState<"instant" | "standard">("standard");
   const [loading, setLoading] = useState(false);
+  const [result, setResult] = useState<{ status: "success" | "error"; hash?: string } | null>(null);
+  const randomHash = () =>
+    "0x" + Array.from({ length: 40 }, () => Math.floor(Math.random() * 16).toString(16)).join("");
 
   useEffect(() => {
     lenderApi.getOverview().then(setOv);
@@ -37,10 +41,9 @@ export const Withdraw: React.FC = () => {
     setLoading(true);
     try {
       await lenderApi.withdraw(amountNum, speed);
-      pushToast(`Withdrew ${formatCurrency(amountNum, "USDT", lang)}`, "success");
-      navigate("/lender");
+      setResult({ status: "success", hash: randomHash() });
     } catch (e) {
-      pushToast(String((e as Error).message ?? "error"), "error");
+      setResult({ status: "error" });
     } finally {
       setLoading(false);
     }
@@ -91,6 +94,25 @@ export const Withdraw: React.FC = () => {
         <p className="mt-3 text-center text-[12px] text-warning">{t("lender.withdraw.lowLiquidity")}</p>
       )}
 
+      <StatusDialog
+        open={!!result}
+        status={result?.status ?? "success"}
+        title={result?.status === "success" ? "Withdrawal Successful" : "Withdrawal Failed"}
+        description={
+          result?.status === "success"
+            ? `${formatCurrency(amountNum, "USDT", lang)} is on its way to your wallet.`
+            : "The transaction could not be completed. No funds were deducted."
+        }
+        hash={result?.hash}
+        primaryLabel={result?.status === "success" ? "OK" : "Retry"}
+        onPrimary={() => {
+          const wasSuccess = result?.status === "success";
+          setResult(null);
+          if (wasSuccess) navigate("/lender");
+          else handleWithdraw();
+        }}
+        onClose={() => setResult(null)}
+      />
     </PhoneFrame>
   );
 };

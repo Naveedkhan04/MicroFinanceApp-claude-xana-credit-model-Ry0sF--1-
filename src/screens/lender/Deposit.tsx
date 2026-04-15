@@ -7,6 +7,7 @@ import { Card } from "../../components/ui/Card";
 import { AmountInput } from "../../components/ui/AmountInput";
 import { PrimaryButton } from "../../components/ui/PrimaryButton";
 import { StatusChip } from "../../components/ui/StatusChip";
+import { StatusDialog } from "../../components/ui/StatusDialog";
 import { lenderApi } from "../../data/services";
 import type { Pool, PoolType } from "../../types";
 import { formatCurrency, formatPercent, useI18n } from "../../i18n";
@@ -23,6 +24,7 @@ export const Deposit: React.FC = () => {
   const [selected, setSelected] = useState<PoolType>("balanced");
   const [confirmOpen, setConfirmOpen] = useState(false);
   const [loading, setLoading] = useState(false);
+  const [result, setResult] = useState<{ status: "success" | "error"; hash?: string } | null>(null);
   const walletBalance = 1500;
 
   useEffect(() => {
@@ -38,15 +40,18 @@ export const Deposit: React.FC = () => {
     setLoading(true);
     try {
       await lenderApi.deposit(amountNum, selected);
-      pushToast(`Deposited ${formatCurrency(amountNum, "USD", lang)}`, "success");
-      navigate("/lender");
+      setConfirmOpen(false);
+      setResult({ status: "success", hash: randomHash() });
     } catch (e) {
-      pushToast("Deposit failed. Try again.", "error");
+      setConfirmOpen(false);
+      setResult({ status: "error" });
     } finally {
       setLoading(false);
-      setConfirmOpen(false);
     }
   };
+
+  const randomHash = () =>
+    "0x" + Array.from({ length: 40 }, () => Math.floor(Math.random() * 16).toString(16)).join("");
 
   const poolCopy = {
     stable: t("lender.deposit.stable"),
@@ -130,6 +135,26 @@ export const Deposit: React.FC = () => {
           </Card>
         </div>
       )}
+
+      <StatusDialog
+        open={!!result}
+        status={result?.status ?? "success"}
+        title={result?.status === "success" ? "Deposit Successful" : "Deposit Failed"}
+        description={
+          result?.status === "success"
+            ? `Your funds of ${formatCurrency(amountNum, "USD", lang)} have been deposited successfully.`
+            : "The transaction could not be completed. No funds were deducted."
+        }
+        hash={result?.hash}
+        primaryLabel={result?.status === "success" ? "OK" : "Retry"}
+        onPrimary={() => {
+          const wasSuccess = result?.status === "success";
+          setResult(null);
+          if (wasSuccess) navigate("/lender");
+          else setConfirmOpen(true);
+        }}
+        onClose={() => setResult(null)}
+      />
     </PhoneFrame>
   );
 };
