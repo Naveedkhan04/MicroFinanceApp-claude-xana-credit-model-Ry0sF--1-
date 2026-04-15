@@ -13,6 +13,8 @@ interface Props {
   topBarRight?: React.ReactNode;
   /** Hide TopBar completely (for welcome/OTP-like screens) */
   bare?: boolean;
+  /** Pinned bottom action area (e.g. primary CTA). Sits 24px above the bottom nav or viewport edge. */
+  footer?: React.ReactNode;
 }
 
 export const PhoneFrame: React.FC<Props> = ({
@@ -23,6 +25,7 @@ export const PhoneFrame: React.FC<Props> = ({
   bottomNav,
   topBarRight,
   bare = false,
+  footer,
 }) => (
   <div className="flex min-h-screen items-center justify-center bg-black">
     <div
@@ -50,9 +53,25 @@ export const PhoneFrame: React.FC<Props> = ({
       )}
 
       {/* Content */}
-      <main className="no-scrollbar relative z-10 flex-1 overflow-y-auto px-4 pt-1 pb-[110px]">
+      <main
+        className={clsx(
+          "no-scrollbar relative z-10 flex-1 overflow-y-auto px-4 pt-1",
+          footer ? (bottomNav ? "pb-[200px]" : "pb-[128px]") : bottomNav ? "pb-[96px]" : "pb-6",
+        )}
+      >
         {children}
       </main>
+
+      {footer && (
+        <div
+          className={clsx(
+            "absolute inset-x-4 z-20",
+            bottomNav ? "bottom-[136px]" : "bottom-12",
+          )}
+        >
+          {footer}
+        </div>
+      )}
 
       {bottomNav}
       <ToastViewport />

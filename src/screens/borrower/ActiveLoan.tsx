@@ -44,8 +44,6 @@ export const ActiveLoan: React.FC = () => {
 
   return (
     <PhoneFrame title={t("borrower.active.title")} bottomNav={<BorrowerNav />}>
-      <h2 className="mb-4 text-center text-[22px] font-semibold text-gold">{t("borrower.active.title")}</h2>
-
       <Card>
         <div className="flex items-center gap-4">
           <TokenIcon kind="xana" size={54} />

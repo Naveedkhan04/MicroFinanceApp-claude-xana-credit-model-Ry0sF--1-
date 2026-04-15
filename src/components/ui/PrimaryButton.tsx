@@ -23,7 +23,7 @@ export const PrimaryButton: React.FC<Props> = ({
   const base =
     "inline-flex items-center justify-center gap-2 rounded-pill px-6 py-[14px] text-[15px] font-semibold transition-all active:scale-[0.98] disabled:opacity-50 disabled:cursor-not-allowed disabled:active:scale-100";
   const variants: Record<string, string> = {
-    gold: "bg-gold-gradient text-white shadow-gold",
+    gold: "bg-gold-gradient text-white",
     outline:
       "bg-transparent border border-gold text-gold hover:bg-gold/10",
     ghost: "bg-surface text-text hover:bg-surface-raised",
@@ -38,10 +38,10 @@ export const PrimaryButton: React.FC<Props> = ({
       {loading ? (
         <span className="h-4 w-4 animate-spin rounded-full border-2 border-white/60 border-t-transparent" />
       ) : (
-        leftIcon
+        leftIcon && <span className="inline-flex h-5 w-5 shrink-0 items-center justify-center">{leftIcon}</span>
       )}
-      <span className="truncate">{children}</span>
-      {!loading && rightIcon}
+      <span className="whitespace-nowrap">{children}</span>
+      {!loading && rightIcon && <span className="inline-flex h-5 w-5 shrink-0 items-center justify-center">{rightIcon}</span>}
     </button>
   );
 };

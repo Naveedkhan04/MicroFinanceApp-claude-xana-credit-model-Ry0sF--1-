@@ -2,7 +2,7 @@ import React from "react";
 import clsx from "../../utils/clsx";
 
 interface Props {
-  kind: "xana" | "usdt" | "gold";
+  kind: "" | "usdt" | "gold";
   size?: number;
   className?: string;
 }

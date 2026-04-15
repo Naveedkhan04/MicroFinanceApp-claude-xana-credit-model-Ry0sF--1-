@@ -28,8 +28,6 @@ export const Portfolio: React.FC = () => {
 
   return (
     <PhoneFrame title={t("lender.portfolio.title")} hideCancel bottomNav={<LenderNav />}>
-      <h2 className="mb-4 text-center text-[22px] font-semibold text-gold">{t("lender.portfolio.title")}</h2>
-
       <div className="grid grid-cols-2 gap-3">
         <StatCard label={t("lender.portfolio.principal")} value={formatCurrency(ov.activeCapital, "USD", lang)} accent />
         <StatCard label={t("lender.portfolio.atRisk")} value={formatPercent(ov.atRiskExposure, lang)} />

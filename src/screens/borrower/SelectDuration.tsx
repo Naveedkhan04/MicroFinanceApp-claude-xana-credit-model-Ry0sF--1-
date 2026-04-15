@@ -26,9 +26,11 @@ export const SelectDuration: React.FC = () => {
   const next = () => navigate("/borrower/review");
 
   return (
-    <PhoneFrame title={t("borrower.duration.title")} bottomNav={<BorrowerNav />}>
-      <h2 className="mb-4 text-center text-[22px] font-semibold text-gold">{t("borrower.duration.title")}</h2>
-
+    <PhoneFrame
+      title={t("borrower.duration.title")}
+      bottomNav={<BorrowerNav />}
+      footer={<PrimaryButton onClick={next}>{t("borrower.duration.next")}</PrimaryButton>}
+    >
       <div className="space-y-3">
         {OPTIONS.map((d) => {
           const rate = rateFor(d);
@@ -63,9 +65,6 @@ export const SelectDuration: React.FC = () => {
         })}
       </div>
 
-      <div className="mt-6">
-        <PrimaryButton onClick={next}>{t("borrower.duration.next")}</PrimaryButton>
-      </div>
     </PhoneFrame>
   );
 };

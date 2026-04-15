@@ -14,7 +14,10 @@ interface Props {
 }
 
 export const Tabs: React.FC<Props> = ({ tabs, active, onChange, className }) => (
-  <div className={clsx("flex justify-center gap-10", className)}>
+  <div
+    className={clsx("-mx-4 flex gap-6 overflow-x-auto px-4", className)}
+    style={{ scrollbarWidth: "none", msOverflowStyle: "none" }}
+  >
     {tabs.map((t) => {
       const isActive = t.key === active;
       return (
@@ -22,7 +25,7 @@ export const Tabs: React.FC<Props> = ({ tabs, active, onChange, className }) => 
           key={t.key}
           onClick={() => onChange(t.key)}
           className={clsx(
-            "relative py-2 text-[15px] font-semibold transition-colors",
+            "relative shrink-0 whitespace-nowrap py-2 text-[15px] font-semibold transition-colors",
             isActive ? "text-gold" : "text-text-muted hover:text-text",
           )}
         >

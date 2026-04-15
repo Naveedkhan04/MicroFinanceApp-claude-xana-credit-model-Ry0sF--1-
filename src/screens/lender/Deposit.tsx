@@ -55,9 +55,22 @@ export const Deposit: React.FC = () => {
   } as const;
 
   return (
-    <PhoneFrame title={t("lender.deposit.title")} bottomNav={<LenderNav />}>
-      <h2 className="mb-4 text-center text-[22px] font-semibold text-gold">{t("lender.deposit.title")}</h2>
-
+    <PhoneFrame
+      title={t("lender.deposit.title")}
+      bottomNav={<LenderNav />}
+      footer={
+        <div>
+          <PrimaryButton disabled={!valid} onClick={() => setConfirmOpen(true)}>
+            {t("lender.deposit.confirm")}
+          </PrimaryButton>
+          {!valid && amount !== "" && (
+            <p className="mt-2 text-center text-[12px] text-danger">
+              {t("lender.deposit.amount")}: min {formatCurrency(selectedPool?.minDeposit ?? 0, "USD", lang)}
+            </p>
+          )}
+        </div>
+      }
+    >
       <SectionLabel right={`${t("lender.deposit.walletBalance")}: ${formatCurrency(walletBalance, "USD", lang)}`}>
         {t("lender.deposit.amount")}
       </SectionLabel>
@@ -92,17 +105,6 @@ export const Deposit: React.FC = () => {
             </Card>
           );
         })}
-      </div>
-
-      <div className="mt-6">
-        <PrimaryButton disabled={!valid} onClick={() => setConfirmOpen(true)}>
-          {t("lender.deposit.confirm")}
-        </PrimaryButton>
-        {!valid && amount !== "" && (
-          <p className="mt-2 text-center text-[12px] text-danger">
-            {t("lender.deposit.amount")}: min {formatCurrency(selectedPool?.minDeposit ?? 0, "USD", lang)}
-          </p>
-        )}
       </div>
 
       {confirmOpen && selectedPool && (

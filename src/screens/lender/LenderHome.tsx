@@ -36,7 +36,7 @@ export const LenderHome: React.FC = () => {
 
   if (!ov) {
     return (
-      <PhoneFrame title={t("app.brand")} hideCancel topBarRight={<LanguageSwitcher />} bottomNav={<LenderNav />}>
+      <PhoneFrame title={t("nav.lender.home")} hideCancel topBarRight={<LanguageSwitcher />} bottomNav={<LenderNav />}>
         <div className="space-y-4 px-1 pt-3">
           <Skeleton variant="block" className="h-40" />
           <div className="grid grid-cols-2 gap-3">
@@ -51,10 +51,8 @@ export const LenderHome: React.FC = () => {
   const firstTime = ov.totalBalance === 0;
 
   return (
-    <PhoneFrame title={t("app.brand")} hideCancel topBarRight={<LanguageSwitcher />} bottomNav={<LenderNav />}>
+    <PhoneFrame title={t("nav.lender.home")} hideCancel topBarRight={<LanguageSwitcher />} bottomNav={<LenderNav />}>
       <motion.div initial={{ opacity: 0, y: 8 }} animate={{ opacity: 1, y: 0 }}>
-        <h2 className="mb-4 text-center text-[22px] font-semibold text-gold">{t("lender.home.title")}</h2>
-
         <BalanceCard
           label={t("lender.home.totalBalance")}
           amount={formatCurrency(ov.totalBalance, "USD", lang).replace(/[^\d.,]/g, "")}

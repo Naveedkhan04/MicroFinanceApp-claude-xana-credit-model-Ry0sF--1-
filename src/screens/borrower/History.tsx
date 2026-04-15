@@ -27,8 +27,6 @@ export const BorrowerHistory: React.FC = () => {
 
   return (
     <PhoneFrame title={t("borrower.history.title")} hideCancel bottomNav={<BorrowerNav />}>
-      <h2 className="mb-4 text-center text-[22px] font-semibold text-gold">{t("borrower.history.title")}</h2>
-
       <Tabs
         tabs={[
           { key: "loans", label: t("borrower.history.loans") },

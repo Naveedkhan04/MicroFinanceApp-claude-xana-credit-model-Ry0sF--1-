@@ -55,9 +55,15 @@ export const Withdraw: React.FC = () => {
   }
 
   return (
-    <PhoneFrame title={t("lender.withdraw.title")} bottomNav={<LenderNav />}>
-      <h2 className="mb-4 text-center text-[22px] font-semibold text-gold">{t("lender.withdraw.title")}</h2>
-
+    <PhoneFrame
+      title={t("lender.withdraw.title")}
+      bottomNav={<LenderNav />}
+      footer={
+        <PrimaryButton disabled={!valid} loading={loading} onClick={handleWithdraw}>
+          {t("lender.withdraw.confirm")}
+        </PrimaryButton>
+      }
+    >
       <BalanceCard
         label={t("lender.withdraw.withdrawable")}
         amount={ov.availableToWithdraw.toFixed(2)}
@@ -85,11 +91,6 @@ export const Withdraw: React.FC = () => {
         <p className="mt-3 text-center text-[12px] text-warning">{t("lender.withdraw.lowLiquidity")}</p>
       )}
 
-      <div className="mt-6">
-        <PrimaryButton disabled={!valid} loading={loading} onClick={handleWithdraw}>
-          {t("lender.withdraw.confirm")}
-        </PrimaryButton>
-      </div>
     </PhoneFrame>
   );
 };

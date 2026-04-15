@@ -31,8 +31,6 @@ export const TrustScore: React.FC = () => {
 
   return (
     <PhoneFrame title={t("borrower.trust.title")} bottomNav={<BorrowerNav />} onCancel={() => navigate(-1)}>
-      <h2 className="mb-4 text-center text-[22px] font-semibold text-gold">{t("borrower.trust.title")}</h2>
-
       <Card className="text-center py-6">
         <div className="gold-text text-[56px] font-semibold leading-none">{p.trustScore}</div>
         <div className="mt-1 text-[13px] text-text-muted">/ 100</div>

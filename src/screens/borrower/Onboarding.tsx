@@ -29,7 +29,14 @@ export const Onboarding: React.FC = () => {
   const save = () => navigate("/borrower");
 
   return (
-    <PhoneFrame onCancel={() => navigate("/borrower/welcome")}>
+    <PhoneFrame
+      onCancel={() => navigate("/borrower/welcome")}
+      footer={
+        <PrimaryButton disabled={!valid} onClick={save}>
+          {t("borrower.onboarding.save")}
+        </PrimaryButton>
+      }
+    >
       <h1 className="mb-5 text-center text-[22px] font-semibold text-gold">{t("borrower.onboarding.title")}</h1>
 
       <div className="space-y-3">
@@ -40,11 +47,6 @@ export const Onboarding: React.FC = () => {
         <Field label={t("borrower.onboarding.zaad")} value={draft.zaad} onChange={(v) => setDraft({ ...draft, zaad: v })} placeholder="+252 63 …" />
       </div>
 
-      <div className="mt-6">
-        <PrimaryButton disabled={!valid} onClick={save}>
-          {t("borrower.onboarding.save")}
-        </PrimaryButton>
-      </div>
     </PhoneFrame>
   );
 };

@@ -64,29 +64,46 @@ export const OTPLogin: React.FC = () => {
     if (digit && i < 5) inputs.current[i + 1]?.focus();
   };
 
+  const footer =
+    step === "phone" ? (
+      <PrimaryButton disabled={phone.replace(/\D/g, "").length < 8} loading={loading} onClick={sendOtp}>
+        {t("borrower.otp.send")}
+      </PrimaryButton>
+    ) : (
+      <div className="flex flex-col gap-3">
+        <PrimaryButton loading={loading} disabled={code.join("").length !== 6} onClick={verify}>
+          {t("app.continue")}
+        </PrimaryButton>
+        <button
+          onClick={() => resendIn === 0 && sendOtp()}
+          disabled={resendIn > 0}
+          className="mx-auto text-[13px] text-text-muted disabled:opacity-60 hover:text-gold"
+        >
+          {resendIn > 0
+            ? t("borrower.otp.resendIn", { seconds: resendIn })
+            : t("borrower.otp.resend")}
+        </button>
+      </div>
+    );
+
   return (
-    <PhoneFrame onCancel={() => navigate("/borrower/welcome")}>
+    <PhoneFrame onCancel={() => navigate("/borrower/welcome")} footer={footer}>
       <div className="mt-2 flex flex-col gap-5">
         <h1 className="text-center text-[24px] font-semibold text-gold">
           {step === "phone" ? t("borrower.welcome.continue") : t("borrower.otp.title")}
         </h1>
 
         {step === "phone" ? (
-          <>
-            <Card>
-              <label className="mb-2 block text-[13px] text-text-muted">{t("borrower.otp.phoneLabel")}</label>
-              <input
-                type="tel"
-                value={phone}
-                onChange={(e) => setPhone(e.target.value)}
-                className="w-full bg-transparent text-[20px] tracking-wider text-text outline-none"
-                placeholder="+252 63 123 4567"
-              />
-            </Card>
-            <PrimaryButton disabled={phone.replace(/\D/g, "").length < 8} loading={loading} onClick={sendOtp}>
-              {t("borrower.otp.send")}
-            </PrimaryButton>
-          </>
+          <Card>
+            <label className="mb-2 block text-[13px] text-text-muted">{t("borrower.otp.phoneLabel")}</label>
+            <input
+              type="tel"
+              value={phone}
+              onChange={(e) => setPhone(e.target.value)}
+              className="w-full bg-transparent text-[20px] tracking-wider text-text outline-none"
+              placeholder="+252 63 123 4567"
+            />
+          </Card>
         ) : (
           <>
             <p className="text-center text-[13px] text-text-muted">
@@ -115,20 +132,6 @@ export const OTPLogin: React.FC = () => {
               ))}
             </div>
             {err && <p className="text-center text-[12px] text-danger">{err}</p>}
-
-            <PrimaryButton loading={loading} disabled={code.join("").length !== 6} onClick={verify}>
-              {t("app.continue")}
-            </PrimaryButton>
-
-            <button
-              onClick={() => resendIn === 0 && sendOtp()}
-              disabled={resendIn > 0}
-              className="mx-auto text-[13px] text-text-muted disabled:opacity-60 hover:text-gold"
-            >
-              {resendIn > 0
-                ? t("borrower.otp.resendIn", { seconds: resendIn })
-                : t("borrower.otp.resend")}
-            </button>
           </>
         )}
       </div>

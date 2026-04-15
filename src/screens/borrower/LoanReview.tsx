@@ -28,9 +28,15 @@ export const LoanReview: React.FC = () => {
   const confirm = () => navigate("/borrower/processing");
 
   return (
-    <PhoneFrame title={t("borrower.review.title")} bottomNav={<BorrowerNav />}>
-      <h2 className="mb-4 text-center text-[22px] font-semibold text-gold">{t("borrower.review.title")}</h2>
-
+    <PhoneFrame
+      title={t("borrower.review.title")}
+      bottomNav={<BorrowerNav />}
+      footer={
+        <PrimaryButton disabled={!consent} onClick={confirm}>
+          {t("borrower.review.confirm")}
+        </PrimaryButton>
+      }
+    >
       <Card className="mb-3 flex items-center gap-4">
         <TokenIcon kind="xana" size={48} />
         <div className="flex-1">
@@ -59,11 +65,6 @@ export const LoanReview: React.FC = () => {
         <span className="text-text-muted">{t("borrower.review.consent")}</span>
       </label>
 
-      <div className="mt-6">
-        <PrimaryButton disabled={!consent} onClick={confirm}>
-          {t("borrower.review.confirm")}
-        </PrimaryButton>
-      </div>
     </PhoneFrame>
   );
 };

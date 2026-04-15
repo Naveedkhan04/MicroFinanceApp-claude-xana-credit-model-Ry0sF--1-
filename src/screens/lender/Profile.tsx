@@ -24,8 +24,6 @@ export const LenderProfile: React.FC = () => {
 
   return (
     <PhoneFrame title={t("lender.profile.title")} hideCancel bottomNav={<LenderNav />}>
-      <h2 className="mb-4 text-center text-[22px] font-semibold text-gold">{t("lender.profile.title")}</h2>
-
       <Card className="mb-4">
         <div className="flex items-center gap-4">
           <div className="h-14 w-14 rounded-full border-2 border-gold-dim bg-gradient-to-br from-[#6b5a48] to-[#2a2016]" />

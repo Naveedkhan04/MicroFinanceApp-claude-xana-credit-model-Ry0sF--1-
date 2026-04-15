@@ -15,7 +15,7 @@ export const Welcome: React.FC = () => {
     <PhoneFrame bare>
       <div className="flex h-full flex-col px-4 py-8">
         <div className="flex justify-between">
-          <div className="text-[13px] font-semibold tracking-[0.3em] text-white">XANA</div>
+          <div className=" text-center text-[13px] font-semibold tracking-[0.3em] text-white">XANA</div>
           <LanguageSwitcher />
         </div>
 
@@ -24,8 +24,8 @@ export const Welcome: React.FC = () => {
           animate={{ opacity: 1, y: 0 }}
           className="mt-auto flex flex-col items-center text-center"
         >
-          <TokenIcon kind="gold" size={96} className="mb-5 shadow-gold" />
-          <h1 className="mb-3 text-[30px] font-semibold">
+          <TokenIcon kind="gold" size={96} className="mb-5" />
+          <h1 className="mb-1 text-[30px] font-semibold">
             <span className="gold-text">{t("app.brand")}</span>
           </h1>
           <p className="max-w-[280px] text-[14px] leading-relaxed text-text-muted">

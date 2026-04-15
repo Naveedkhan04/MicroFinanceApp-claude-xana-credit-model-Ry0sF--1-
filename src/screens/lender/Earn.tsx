@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { PhoneFrame } from "../../components/layout/PhoneFrame";
 import { LenderNav } from "../../components/layout/LenderNav";
 import { Card } from "../../components/ui/Card";
-import { StatCard } from "../../components/ui/StatCard";
+import clsx from "../../utils/clsx";
 import { Sparkline } from "../../components/ui/Sparkline";
 import { SectionLabel } from "../../components/ui/SectionLabel";
 import { ProgressBar } from "../../components/ui/ProgressBar";
@@ -11,9 +11,12 @@ import { formatCurrency, formatPercent, useI18n } from "../../i18n";
 import { lenderApi } from "../../data/services";
 import type { LenderOverview } from "../../types";
 
+type Range = "daily" | "monthly" | "lifetime";
+
 export const Earn: React.FC = () => {
   const { t, lang } = useI18n();
   const [ov, setOv] = useState<LenderOverview | null>(null);
+  const [range, setRange] = useState<Range>("daily");
   useEffect(() => {
     lenderApi.getOverview().then(setOv);
   }, []);
@@ -27,16 +30,47 @@ export const Earn: React.FC = () => {
   }
 
   const monthly = ov.earningsToday * 30;
+  const values: Record<Range, number> = {
+    daily: ov.earningsToday,
+    monthly,
+    lifetime: ov.totalEarnings,
+  };
+  const ranges: { key: Range; label: string }[] = [
+    { key: "daily", label: t("lender.earn.daily") },
+    { key: "monthly", label: t("lender.earn.monthly") },
+    { key: "lifetime", label: t("lender.earn.lifetime") },
+  ];
 
   return (
     <PhoneFrame title={t("lender.earn.title")} hideCancel bottomNav={<LenderNav />}>
-      <h2 className="mb-4 text-center text-[22px] font-semibold text-gold">{t("lender.earn.title")}</h2>
-
-      <div className="grid grid-cols-3 gap-3">
-        <StatCard label={t("lender.earn.daily")} value={formatCurrency(ov.earningsToday, "USD", lang)} accent />
-        <StatCard label={t("lender.earn.monthly")} value={formatCurrency(monthly, "USD", lang)} />
-        <StatCard label={t("lender.earn.lifetime")} value={formatCurrency(ov.totalEarnings, "USD", lang)} />
+      <div className="flex gap-2">
+        {ranges.map((r) => {
+          const isActive = r.key === range;
+          return (
+            <button
+              key={r.key}
+              onClick={() => setRange(r.key)}
+              className={clsx(
+                "flex-1 whitespace-nowrap rounded-pill border px-3 py-2 text-[13px] font-semibold transition-colors",
+                isActive
+                  ? "border-gold bg-gold/15 text-gold"
+                  : "border-border-gold bg-transparent text-text-muted",
+              )}
+            >
+              {r.label}
+            </button>
+          );
+        })}
       </div>
+
+      <Card className="mt-3 text-center">
+        <div className="text-[12px] font-medium uppercase tracking-wide text-text-muted">
+          {ranges.find((r) => r.key === range)?.label}
+        </div>
+        <div className="mt-1 text-[28px] font-bold text-gold-bright">
+          {formatCurrency(values[range], "USD", lang)}
+        </div>
+      </Card>
 
       <SectionLabel right={formatPercent(ov.apy, lang)}>{t("lender.earn.apyTrend")}</SectionLabel>
       <Card>

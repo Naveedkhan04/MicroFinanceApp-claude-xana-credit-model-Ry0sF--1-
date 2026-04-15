@@ -1,7 +1,7 @@
 /* English translations — keep keys organized by surface */
 export const en = {
   app: {
-    brand: "XANA CREDIT",
+    brand: "XANA MFB",
     cancel: "Cancel",
     back: "Back",
     next: "Next",
@@ -144,7 +144,7 @@ export const en = {
       save: "Save & continue",
     },
     home: {
-      creditLimit: "Available credit",
+      // creditLimit: "Available credit",
       trustScore: "Trust Score",
       eligibility: "Eligibility",
       eligible: "Eligible",

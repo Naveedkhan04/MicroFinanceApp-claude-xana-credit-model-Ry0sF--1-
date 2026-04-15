@@ -31,7 +31,7 @@ export const BorrowerHome: React.FC = () => {
 
   if (!profile) {
     return (
-      <PhoneFrame title={t("app.brand")} hideCancel topBarRight={<LanguageSwitcher />} bottomNav={<BorrowerNav />}>
+      <PhoneFrame title={t("nav.borrower.home")} hideCancel topBarRight={<LanguageSwitcher />} bottomNav={<BorrowerNav />}>
         <Skeleton variant="block" className="h-40" />
       </PhoneFrame>
     );
@@ -58,10 +58,10 @@ export const BorrowerHome: React.FC = () => {
   const canBorrow = profile.eligibility === "eligible" && !loan;
 
   return (
-    <PhoneFrame title={t("app.brand")} hideCancel topBarRight={<LanguageSwitcher />} bottomNav={<BorrowerNav />}>
+    <PhoneFrame title={t("nav.borrower.home")} hideCancel topBarRight={<LanguageSwitcher />} bottomNav={<BorrowerNav />}>
       <motion.div initial={{ opacity: 0, y: 8 }} animate={{ opacity: 1, y: 0 }}>
         <div className="mb-3 flex items-center justify-center gap-2">
-          <h2 className="text-[22px] font-semibold text-gold">{t("borrower.home.creditLimit")}</h2>
+          {/* <h2 className="text-[22px] font-semibold text-gold">{t("borrower.home.creditLimit")}</h2> */}
         </div>
 
         <BalanceCard

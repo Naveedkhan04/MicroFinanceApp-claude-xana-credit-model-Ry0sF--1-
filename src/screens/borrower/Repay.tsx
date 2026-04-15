@@ -92,9 +92,15 @@ export const Repay: React.FC = () => {
   }
 
   return (
-    <PhoneFrame title={t("borrower.repay.title")} bottomNav={<BorrowerNav />}>
-      <h2 className="mb-4 text-center text-[22px] font-semibold text-gold">{t("borrower.repay.title")}</h2>
-
+    <PhoneFrame
+      title={t("borrower.repay.title")}
+      bottomNav={<BorrowerNav />}
+      footer={
+        <PrimaryButton disabled={!valid} loading={loading} onClick={pay}>
+          {t("borrower.repay.confirm")}
+        </PrimaryButton>
+      }
+    >
       <Card className="mb-4 flex items-center gap-4">
         <TokenIcon kind="xana" size={46} />
         <div className="flex-1">
@@ -124,11 +130,6 @@ export const Repay: React.FC = () => {
 
       <AmountInput value={amount} onChange={setAmount} token="USD" placeholder={t("common.enterAmount")} disabled={mode === "full"} />
 
-      <div className="mt-6">
-        <PrimaryButton disabled={!valid} loading={loading} onClick={pay}>
-          {t("borrower.repay.confirm")}
-        </PrimaryButton>
-      </div>
     </PhoneFrame>
   );
 };

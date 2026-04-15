@@ -38,7 +38,7 @@ export const TopBar: React.FC<Props> = ({
       ) : (
         <span className="w-[54px]" />
       )}
-      <h1 className="text-[15px] font-bold tracking-[0.2em] text-white uppercase">
+      <h1 className="text-center text-[22px] font-semibold text-gold uppercase">
         {title ?? t("app.brand")}
       </h1>
       {right ?? (

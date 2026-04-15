@@ -39,9 +39,15 @@ export const BorrowAmount: React.FC = () => {
   };
 
   return (
-    <PhoneFrame title={t("borrower.borrow.title")} bottomNav={<BorrowerNav />}>
-      <h2 className="mb-4 text-center text-[22px] font-semibold text-gold">{t("borrower.borrow.title")}</h2>
-
+    <PhoneFrame
+      title={t("borrower.borrow.title")}
+      bottomNav={<BorrowerNav />}
+      footer={
+        <PrimaryButton disabled={!valid} onClick={next}>
+          {t("borrower.borrow.next")}
+        </PrimaryButton>
+      }
+    >
       <SectionLabel right={t("borrower.borrow.limitHelper", { limit: formatCurrency(limit, "USD", lang) })}>
         {t("borrower.borrow.amount")}
       </SectionLabel>
@@ -70,11 +76,6 @@ export const BorrowAmount: React.FC = () => {
         </p>
       )}
 
-      <div className="mt-6">
-        <PrimaryButton disabled={!valid} onClick={next}>
-          {t("borrower.borrow.next")}
-        </PrimaryButton>
-      </div>
     </PhoneFrame>
   );
 };
