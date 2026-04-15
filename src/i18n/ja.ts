@@ -146,7 +146,6 @@ export const ja: Dict = {
       save: "保存して続ける",
     },
     home: {
-      creditLimit: "利用可能クレジット",
       trustScore: "信用スコア",
       eligibility: "審査結果",
       eligible: "利用可能",
