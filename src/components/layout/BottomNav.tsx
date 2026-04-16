@@ -17,9 +17,10 @@ export const BottomNav: React.FC<Props> = ({ items }) => {
   return (
     <nav className="absolute inset-x-3 bottom-4 z-20 flex items-center justify-around rounded-[28px] border border-border-gold bg-bg-panel/90 p-2 backdrop-blur-lg">
       {items.map((it) => {
-        const active =
-          pathname === it.to ||
-          (it.to !== "/" && pathname.startsWith(it.to));
+        const isModeRoot = it.to.split("/").filter(Boolean).length === 1;
+        const active = isModeRoot
+          ? pathname === it.to
+          : pathname === it.to || pathname.startsWith(it.to + "/");
         return (
           <NavLink
             key={it.to}

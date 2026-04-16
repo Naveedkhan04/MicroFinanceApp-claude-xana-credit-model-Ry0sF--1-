@@ -99,7 +99,7 @@ export const Repay: React.FC = () => {
       </Card>
 
       <SectionLabel>{t("common.amount")}</SectionLabel>
-      <div className="mb-2 flex gap-2">
+      <div className="mb-3 flex gap-2">
         <Chip active={mode === "full"} onClick={() => setMode("full")}>
           {t("borrower.repay.full")}
         </Chip>

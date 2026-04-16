@@ -21,7 +21,7 @@ export const PrimaryButton: React.FC<Props> = ({
   ...rest
 }) => {
   const base =
-    "mx-auto inline-flex h-[64px] w-full max-w-[343px] items-center justify-center gap-2 px-6 transition-all active:scale-[0.98] disabled:opacity-50 disabled:cursor-not-allowed disabled:active:scale-100";
+    "mx-auto inline-flex h-[64px] w-full items-center justify-center gap-2 px-6 transition-all active:scale-[0.98] disabled:opacity-50 disabled:cursor-not-allowed disabled:active:scale-100 text-white w-full";
   const goldGradient =
     "linear-gradient(88deg, #D09635 4.35%, #E5B057 18.75%, #D28E1F 35.38%, #AD7211 65.92%, #E5B057 83.64%, #D09635 96.49%)";
   const variants: Record<string, string> = {

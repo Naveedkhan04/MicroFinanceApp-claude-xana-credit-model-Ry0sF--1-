@@ -3,7 +3,6 @@ import { useNavigate } from "react-router-dom";
 import { motion } from "framer-motion";
 import { PhoneFrame } from "../../components/layout/PhoneFrame";
 import { PrimaryButton } from "../../components/ui/PrimaryButton";
-import { LanguageSwitcher } from "../../components/ui/LanguageSwitcher";
 import { TokenIcon } from "../../components/ui/TokenIcon";
 import { useI18n } from "../../i18n";
 
@@ -14,9 +13,8 @@ export const Welcome: React.FC = () => {
   return (
     <PhoneFrame bare>
       <div className="flex h-full flex-col px-4 py-8">
-        <div className="flex justify-between">
-          <div className=" text-center text-[13px] font-semibold tracking-[0.3em] text-white">XANA</div>
-          <LanguageSwitcher />
+        <div className="flex justify-center">
+          <div className="text-center text-[13px] font-semibold tracking-[0.3em] text-white">XANA</div>
         </div>
 
         <motion.div

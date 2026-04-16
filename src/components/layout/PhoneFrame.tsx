@@ -57,8 +57,6 @@ export const PhoneFrame: React.FC<Props> = ({
           title={title}
           onCancel={onCancel}
           hideCancel={hideCancel ?? Boolean(bottomNav)}
-          showBack={showBack}
-          onBack={onBack}
           right={topBarRight}
         />
       )}
@@ -77,7 +75,7 @@ export const PhoneFrame: React.FC<Props> = ({
         <div
           className={clsx(
             "absolute inset-x-4 z-20",
-            bottomNav ? "bottom-[136px]" : "bottom-12",
+            bottomNav ? "bottom-[112px]" : "bottom-12",
           )}
         >
           {footer}

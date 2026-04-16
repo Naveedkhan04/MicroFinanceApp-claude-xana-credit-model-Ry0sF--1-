@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom";
 import { motion } from "framer-motion";
 import { PhoneFrame } from "../components/layout/PhoneFrame";
 import { PrimaryButton } from "../components/ui/PrimaryButton";
+import { Flag } from "../components/ui/Flag";
 import { useI18n } from "../i18n";
 import type { Lang } from "../types";
 import clsx from "../utils/clsx";
@@ -11,13 +12,13 @@ const LANG_CHOSEN_KEY = "xana.langChosen";
 
 interface Option {
   value: Lang;
-  flag: string;
+  iso: string;
   labelKey: "selectLanguage.japanese" | "selectLanguage.english";
 }
 
 const options: Option[] = [
-  { value: "ja", flag: "🇯🇵", labelKey: "selectLanguage.japanese" },
-  { value: "en", flag: "🇺🇸", labelKey: "selectLanguage.english" },
+  { value: "ja", iso: "JP", labelKey: "selectLanguage.japanese" },
+  { value: "en", iso: "US", labelKey: "selectLanguage.english" },
 ];
 
 export const SelectLanguage: React.FC = () => {
@@ -79,7 +80,7 @@ export const SelectLanguage: React.FC = () => {
                     : "border-border-gold/60 hover:border-border-gold",
                 )}
               >
-                <span className="text-[22px] leading-none">{opt.flag}</span>
+                <Flag iso={opt.iso} size={22} />
                 <span className="flex-1 text-[15px] font-semibold text-text">
                   {t(opt.labelKey)}
                 </span>

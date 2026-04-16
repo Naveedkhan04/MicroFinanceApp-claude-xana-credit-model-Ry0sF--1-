@@ -2,10 +2,15 @@ import React, { useEffect, useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { PhoneFrame } from "../../components/layout/PhoneFrame";
 import { PrimaryButton } from "../../components/ui/PrimaryButton";
+import { CountryPicker } from "../../components/ui/CountryPicker";
+import { Flag } from "../../components/ui/Flag";
+import { COUNTRIES, type Country } from "../../data/countries";
 import { useI18n } from "../../i18n";
 import { useApp } from "../../context/AppContext";
 import { auth } from "../../data/services";
 import clsx from "../../utils/clsx";
+
+const DEFAULT_COUNTRY: Country = COUNTRIES[0];
 
 export const OTPLogin: React.FC = () => {
   const { t } = useI18n();
@@ -13,12 +18,17 @@ export const OTPLogin: React.FC = () => {
   const { setAuthed, pushToast } = useApp();
 
   const [step, setStep] = useState<"phone" | "code">("phone");
-  const [phone, setPhone] = useState("+252 ");
+  const [country, setCountry] = useState<Country>(DEFAULT_COUNTRY);
+  const [phoneNumber, setPhoneNumber] = useState("");
+  const [countryOpen, setCountryOpen] = useState(false);
   const [code, setCode] = useState<string[]>(["", "", "", "", "", ""]);
   const [err, setErr] = useState<string | null>(null);
   const [loading, setLoading] = useState(false);
   const [resendIn, setResendIn] = useState(30);
   const inputs = useRef<(HTMLInputElement | null)[]>([]);
+
+  const fullPhone = `${country.dial} ${phoneNumber}`.trim();
+  const digitCount = phoneNumber.replace(/\D/g, "").length;
 
   useEffect(() => {
     if (step !== "code") return;
@@ -28,10 +38,10 @@ export const OTPLogin: React.FC = () => {
   }, [step]);
 
   const sendOtp = async () => {
-    if (phone.replace(/\D/g, "").length < 8) return;
+    if (digitCount < 7) return;
     setLoading(true);
     try {
-      await auth.borrowerSendOtp(phone);
+      await auth.borrowerSendOtp(fullPhone);
       setStep("code");
     } finally {
       setLoading(false);
@@ -65,7 +75,7 @@ export const OTPLogin: React.FC = () => {
 
   const footer =
     step === "phone" ? (
-      <PrimaryButton disabled={phone.replace(/\D/g, "").length < 8} loading={loading} onClick={sendOtp}>
+      <PrimaryButton disabled={digitCount < 7} loading={loading} onClick={sendOtp}>
         {t("borrower.otp.send")}
       </PrimaryButton>
     ) : (
@@ -85,29 +95,59 @@ export const OTPLogin: React.FC = () => {
       </div>
     );
 
-  return (
-    <PhoneFrame hideCancel footer={footer}>
-      <div className="mt-2 flex flex-col gap-5">
-        {step === "code" && (
-          <h1 className="text-center text-[24px] font-semibold text-gold">
-            {t("borrower.otp.title")}
-          </h1>
-        )}
+  const isCode = step === "code";
 
+  return (
+    <PhoneFrame
+      hideCancel
+      title={isCode ? t("borrower.otp.verifyTitle") : undefined}
+      topBarRight={isCode ? null : undefined}
+      footer={footer}
+    >
+      <div className="mt-2 flex flex-col gap-5">
         {step === "phone" ? (
           <div>
-            <label className="mb-2 ml-2 block text-[13px] text-text-muted">{t("borrower.otp.phoneLabel")}</label>
+            <label className="mb-2 ml-2 block text-[13px] text-text-muted">
+              {t("borrower.otp.phoneLabel")}
+            </label>
             <div
               className="flex h-[56px] items-center overflow-hidden bg-white shadow-inner"
               style={{ borderRadius: 62 }}
             >
+              <button
+                type="button"
+                onClick={() => setCountryOpen(true)}
+                className="flex h-full items-center gap-1.5 border-r border-neutral-200 pl-5 pr-3 text-[#222] transition-colors hover:bg-neutral-50"
+                aria-label={t("borrower.otp.countryTitle")}
+              >
+                <Flag iso={country.iso} size={18} />
+                <span
+                  style={{ fontFamily: "Inter, sans-serif", fontSize: 16, fontWeight: 700 }}
+                >
+                  {country.dial}
+                </span>
+                <svg
+                  viewBox="0 0 24 24"
+                  className="h-4 w-4 fill-none stroke-current text-neutral-500"
+                  strokeWidth={2.2}
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                >
+                  <path d="M6 9l6 6 6-6" />
+                </svg>
+              </button>
               <input
                 type="tel"
-                value={phone}
-                onChange={(e) => setPhone(e.target.value)}
-                placeholder="+252 63 123 4567"
-                className="flex-1 bg-transparent px-5 text-[#222] outline-none placeholder:text-neutral-400"
-                style={{ fontFamily: "Inter, sans-serif", fontSize: 18, fontWeight: 600, letterSpacing: "-0.36px" }}
+                value={phoneNumber}
+                onChange={(e) => setPhoneNumber(e.target.value)}
+                placeholder={t("borrower.otp.phonePlaceholder")}
+                className="flex-1 bg-transparent px-4 text-[#222] outline-none placeholder:text-neutral-400"
+                style={{
+                  fontFamily: "Inter, sans-serif",
+                  fontSize: 18,
+                  fontWeight: 600,
+                  letterSpacing: "-0.36px",
+                }}
               />
             </div>
           </div>
@@ -116,7 +156,7 @@ export const OTPLogin: React.FC = () => {
             <p className="text-center text-[13px] text-text-muted">
               {t("borrower.otp.codeLabel")}
               <br />
-              <span className="text-gold">{phone}</span>
+              <span className="text-gold">{fullPhone}</span>
             </p>
 
             <div className="flex justify-center gap-2">
@@ -132,7 +172,7 @@ export const OTPLogin: React.FC = () => {
                   inputMode="numeric"
                   maxLength={1}
                   className={clsx(
-                    "h-12 w-10 rounded-xl border bg-bg-panel/80 text-center text-[22px] font-semibold text-gold outline-none",
+                    "h-14 w-14 rounded-2xl border bg-bg-panel/80 text-center text-[26px] font-semibold text-gold outline-none",
                     err ? "border-danger" : "border-border-gold focus:border-gold",
                   )}
                 />
@@ -142,6 +182,13 @@ export const OTPLogin: React.FC = () => {
           </>
         )}
       </div>
+
+      <CountryPicker
+        open={countryOpen}
+        selected={country}
+        onClose={() => setCountryOpen(false)}
+        onSelect={setCountry}
+      />
     </PhoneFrame>
   );
 };

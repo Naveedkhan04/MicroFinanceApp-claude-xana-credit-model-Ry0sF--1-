@@ -1,13 +1,14 @@
 import React from "react";
 import { motion } from "framer-motion";
 import { PhoneFrame } from "../../../components/layout/PhoneFrame";
+import { Flag } from "../../../components/ui/Flag";
 import { useI18n } from "../../../i18n";
 import type { Lang } from "../../../types";
 import clsx from "../../../utils/clsx";
 
 interface Option {
   value: Lang;
-  flag: string;
+  iso: string;
   label: string;
 }
 
@@ -15,8 +16,8 @@ export const LenderLanguagePage: React.FC = () => {
   const { t, lang, setLang } = useI18n();
 
   const options: Option[] = [
-    { value: "en", flag: "🇺🇸", label: t("selectLanguage.english") },
-    { value: "ja", flag: "🇯🇵", label: t("selectLanguage.japanese") },
+    { value: "en", iso: "US", label: t("selectLanguage.english") },
+    { value: "ja", iso: "JP", label: t("selectLanguage.japanese") },
   ];
 
   return (
@@ -37,7 +38,7 @@ export const LenderLanguagePage: React.FC = () => {
                     : "border-border-gold/60 hover:border-border-gold",
                 )}
               >
-                <span className="text-[22px] leading-none">{opt.flag}</span>
+                <Flag iso={opt.iso} size={22} />
                 <span className="flex-1 text-[15px] font-semibold text-text">{opt.label}</span>
                 {active && (
                   <svg viewBox="0 0 24 24" className="h-5 w-5 fill-gold">

@@ -5,7 +5,6 @@ import { useI18n } from "../i18n";
 import { useApp } from "../context/AppContext";
 import { Card } from "../components/ui/Card";
 import { PrimaryButton } from "../components/ui/PrimaryButton";
-import { LanguageSwitcher } from "../components/ui/LanguageSwitcher";
 import { PhoneFrame } from "../components/layout/PhoneFrame";
 import { TokenIcon } from "../components/ui/TokenIcon";
 
@@ -29,11 +28,10 @@ export const ModeSelect: React.FC = () => {
   return (
     <PhoneFrame bare>
       <div className="flex h-full flex-col items-center justify-between px-3 py-6">
-        <div className="flex w-full items-center justify-between px-2 pt-2">
+        <div className="flex w-full items-center justify-center px-2 pt-2">
           <h1 className="text-[15px] font-bold tracking-[0.2em] text-white uppercase">
             {t("app.brand")}
           </h1>
-          <LanguageSwitcher />
         </div>
 
         <motion.div

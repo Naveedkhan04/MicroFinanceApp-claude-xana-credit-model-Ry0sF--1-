@@ -37,10 +37,11 @@ export const AmountInput: React.FC<Props> = ({
         <button
           type="button"
           tabIndex={-1}
-          className="m-1 inline-flex h-[48px] items-center justify-center px-6 text-white"
+          className="m-0 inline-flex h-[56px] items-center justify-center px-6 text-white"
           style={{
             background: goldGradient,
-            borderRadius: 62,
+            borderTopLeftRadius: 62,
+            borderBottomLeftRadius: 62,
             fontFamily: "Inter, sans-serif",
             fontSize: 18,
             fontWeight: 600,

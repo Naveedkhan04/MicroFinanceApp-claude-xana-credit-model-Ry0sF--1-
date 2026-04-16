@@ -30,6 +30,16 @@ export const TopBar: React.FC<Props> = ({
         "relative z-10 flex items-center justify-between px-5 pt-3 pb-2",
         className,
       )}
+      style={{
+        background: "goldGradient", // Replace with actual gold gradient value
+        borderTopLeftRadius: 62,
+        borderBottomLeftRadius: 62,
+        fontFamily: "Inter, sans-serif",
+        fontSize: 18,
+        fontWeight: 600,
+        lineHeight: "140%",
+        letterSpacing: "-0.36px",
+      }}
     >
       <h1 className="pointer-events-none absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 whitespace-nowrap text-[22px] font-semibold text-gold uppercase">
         {title ?? t("app.brand")}
@@ -41,7 +51,13 @@ export const TopBar: React.FC<Props> = ({
           aria-label="Back"
           className="flex h-8 w-8 items-center justify-center rounded-full border border-border-gold text-gold-bright transition-colors hover:bg-gold/10"
         >
-          <svg viewBox="0 0 24 24" className="h-4 w-4 fill-none stroke-current" strokeWidth={2.5} strokeLinecap="round" strokeLinejoin="round">
+          <svg
+            viewBox="0 0 24 24"
+            className="h-4 w-4 fill-none stroke-current"
+            strokeWidth={2.5}
+            strokeLinecap="round"
+            strokeLinejoin="round"
+          >
             <path d="M15 6l-6 6 6 6" />
           </svg>
         </button>
@@ -54,25 +70,9 @@ export const TopBar: React.FC<Props> = ({
           {t("app.cancel")}
         </button>
       ) : (
-        <span className="w-[54px]" />
-      )}
-      {right !== undefined ? (
-        right
-      ) : showBack ? (
         <span className="h-8 w-8" />
-      ) : (
-        <button
-          type="button"
-          className="flex h-8 w-8 items-center justify-center rounded-full border border-white/50 text-white hover:bg-white/10"
-          aria-label="menu"
-        >
-          <svg viewBox="0 0 24 24" className="h-4 w-4 fill-current">
-            <circle cx="5" cy="12" r="1.8" />
-            <circle cx="12" cy="12" r="1.8" />
-            <circle cx="19" cy="12" r="1.8" />
-          </svg>
-        </button>
       )}
+      {right !== undefined ? right : <span className="h-8 w-8" />}
     </header>
   );
 };
