@@ -7,7 +7,6 @@ import { BalanceCard } from "../../components/ui/BalanceCard";
 import { Card } from "../../components/ui/Card";
 import { PrimaryButton } from "../../components/ui/PrimaryButton";
 import { StatusChip } from "../../components/ui/StatusChip";
-import { LanguageSwitcher } from "../../components/ui/LanguageSwitcher";
 import { SectionLabel } from "../../components/ui/SectionLabel";
 import { ProgressBar } from "../../components/ui/ProgressBar";
 import { Skeleton } from "../../components/ui/Skeleton";
@@ -31,7 +30,7 @@ export const BorrowerHome: React.FC = () => {
 
   if (!profile) {
     return (
-      <PhoneFrame title={t("nav.borrower.home")} hideCancel topBarRight={<LanguageSwitcher />} bottomNav={<BorrowerNav />}>
+      <PhoneFrame title={t("nav.borrower.home")} hideCancel bottomNav={<BorrowerNav />}>
         <Skeleton variant="block" className="h-40" />
       </PhoneFrame>
     );
@@ -58,7 +57,7 @@ export const BorrowerHome: React.FC = () => {
   const canBorrow = profile.eligibility === "eligible" && !loan;
 
   return (
-    <PhoneFrame title={t("nav.borrower.home")} hideCancel topBarRight={<LanguageSwitcher />} bottomNav={<BorrowerNav />}>
+    <PhoneFrame title={t("nav.borrower.home")} hideCancel bottomNav={<BorrowerNav />}>
       <motion.div initial={{ opacity: 0, y: 8 }} animate={{ opacity: 1, y: 0 }}>
         <div className="mb-3 flex items-center justify-center gap-2">
           {/* <h2 className="text-[22px] font-semibold text-gold">{t("borrower.home.creditLimit")}</h2> */}

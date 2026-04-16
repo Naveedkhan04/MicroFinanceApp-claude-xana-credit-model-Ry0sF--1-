@@ -9,6 +9,8 @@ interface Props {
   title?: string;
   onCancel?: () => void;
   hideCancel?: boolean;
+  showBack?: boolean;
+  onBack?: () => void;
   bottomNav?: React.ReactNode;
   topBarRight?: React.ReactNode;
   /** Hide TopBar completely (for welcome/OTP-like screens) */
@@ -22,6 +24,8 @@ export const PhoneFrame: React.FC<Props> = ({
   title,
   onCancel,
   hideCancel,
+  showBack,
+  onBack,
   bottomNav,
   topBarRight,
   bare = false,
@@ -53,6 +57,8 @@ export const PhoneFrame: React.FC<Props> = ({
           title={title}
           onCancel={onCancel}
           hideCancel={hideCancel ?? Boolean(bottomNav)}
+          showBack={showBack}
+          onBack={onBack}
           right={topBarRight}
         />
       )}

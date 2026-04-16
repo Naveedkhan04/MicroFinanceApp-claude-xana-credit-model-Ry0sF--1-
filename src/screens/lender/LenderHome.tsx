@@ -7,7 +7,6 @@ import { BalanceCard } from "../../components/ui/BalanceCard";
 import { Card } from "../../components/ui/Card";
 import { PrimaryButton } from "../../components/ui/PrimaryButton";
 import { StatCard } from "../../components/ui/StatCard";
-import { LanguageSwitcher } from "../../components/ui/LanguageSwitcher";
 import { SectionLabel } from "../../components/ui/SectionLabel";
 import { Skeleton } from "../../components/ui/Skeleton";
 import { DepositIcon, WithdrawIcon } from "../../components/layout/NavIcons";
@@ -36,7 +35,7 @@ export const LenderHome: React.FC = () => {
 
   if (!ov) {
     return (
-      <PhoneFrame title={t("nav.lender.home")} hideCancel topBarRight={<LanguageSwitcher />} bottomNav={<LenderNav />}>
+      <PhoneFrame title={t("nav.lender.home")} hideCancel bottomNav={<LenderNav />}>
         <div className="space-y-4 px-1 pt-3">
           <Skeleton variant="block" className="h-40" />
           <div className="grid grid-cols-2 gap-3">
@@ -51,7 +50,7 @@ export const LenderHome: React.FC = () => {
   const firstTime = ov.totalBalance === 0;
 
   return (
-    <PhoneFrame title={t("nav.lender.home")} hideCancel topBarRight={<LanguageSwitcher />} bottomNav={<LenderNav />}>
+    <PhoneFrame title={t("nav.lender.home")} hideCancel bottomNav={<LenderNav />}>
       <motion.div initial={{ opacity: 0, y: 8 }} animate={{ opacity: 1, y: 0 }}>
         <BalanceCard
           amount={formatCurrency(ov.totalBalance, "USD", lang).replace(/[^\d.,]/g, "")}

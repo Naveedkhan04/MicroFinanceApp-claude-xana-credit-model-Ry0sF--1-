@@ -19,7 +19,7 @@ export const Card: React.FC<CardProps> = ({
     className={clsx(
       "rounded-2xl border border-border-gold bg-bg-panel/80 backdrop-blur-md",
       raised && "shadow-card",
-      padded && "p-5",
+      padded && "px-6 pt-[11px] pb-4",
       interactive && "active:scale-[0.99] transition-transform",
       className,
     )}

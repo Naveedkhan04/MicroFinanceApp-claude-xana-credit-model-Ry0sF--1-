@@ -14,10 +14,10 @@ export const StatCard: React.FC<Props> = ({ label, value, accent, trend, classNa
   <Card className={clsx("py-4", className)}>
     <div className="text-[12px] text-text-muted">{label}</div>
     <div className={clsx("mt-1 text-[20px] font-semibold", accent ? "gold-text" : "text-text")}>{value}</div>
-    {trend && (
+    {/* {trend && (
       <div className={clsx("mt-1 text-[12px] font-medium", trend.direction === "up" ? "text-success" : "text-danger")}>
         {trend.direction === "up" ? "↑" : "↓"} {trend.value}
       </div>
-    )}
+    )} */}
   </Card>
 );
