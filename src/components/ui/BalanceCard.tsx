@@ -36,11 +36,11 @@ export const BalanceCard: React.FC<Props> = ({
     {label && <div className="mb-1 text-[13px] text-text-muted">{label}</div>}
     <div className={clsx("flex items-baseline gap-1", justify)}>
       <span className={clsx("text-[26px] text-gold-dim", weightCls)}>{currency}</span>
-      <span className={clsx("gold-text text-[40px] tracking-tight", weightCls)}>{amount}</span>
+      <span className={clsx("gold-text text-[40px] tracking-tight leading-[48px]", weightCls)}>{amount}</span>
     </div>
     {(sublabel || subvalue) && (
       <>
-        <hr className="my-3 border-border-gold" />
+        <hr className="my-2 border-border-gold" />
         <div className="flex items-center justify-between text-[13px]">
           <span className="text-text-muted">{sublabel}</span>
           <span className="text-text font-semibold">{subvalue}</span>

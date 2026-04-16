@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { PhoneFrame } from "../../components/layout/PhoneFrame";
 import { LenderNav } from "../../components/layout/LenderNav";
 import { Card } from "../../components/ui/Card";
+import { BalanceCard } from "../../components/ui/BalanceCard";
 import clsx from "../../utils/clsx";
 import { Sparkline } from "../../components/ui/Sparkline";
 import { SectionLabel } from "../../components/ui/SectionLabel";
@@ -41,9 +42,13 @@ export const Earn: React.FC = () => {
     { key: "lifetime", label: t("lender.earn.lifetime") },
   ];
 
+  const activeLabel = ranges.find((r) => r.key === range)?.label ?? "";
+  const formattedAmount = formatCurrency(values[range], "USD", lang).replace(/[^\d.,]/g, "");
+  const earningsSeries = ov.earningsTrend[range];
+
   return (
     <PhoneFrame title={t("lender.earn.title")} hideCancel bottomNav={<LenderNav />}>
-      <div className="flex gap-2">
+      <div className="mt-1 flex">
         {ranges.map((r) => {
           const isActive = r.key === range;
           return (
@@ -51,37 +56,43 @@ export const Earn: React.FC = () => {
               key={r.key}
               onClick={() => setRange(r.key)}
               className={clsx(
-                "flex-1 whitespace-nowrap rounded-pill border px-3 py-2 text-[13px] font-semibold transition-colors",
-                isActive
-                  ? "border-gold bg-gold/15 text-gold"
-                  : "border-border-gold bg-transparent text-text-muted",
+                "relative flex-1 whitespace-nowrap py-3 text-center text-[15px] font-semibold transition-colors",
+                isActive ? "text-gold" : "text-text-muted hover:text-text",
               )}
             >
               {r.label}
+              {isActive && (
+                <span className="absolute inset-x-4 -bottom-px h-[2px] rounded-full bg-gold" />
+              )}
             </button>
           );
         })}
       </div>
 
-      <Card className="mt-3 text-center">
-        <div className="text-[12px] font-medium uppercase tracking-wide text-text-muted">
-          {ranges.find((r) => r.key === range)?.label}
-        </div>
-        <div className="mt-1 text-[28px] font-bold text-gold-bright">
-          {formatCurrency(values[range], "USD", lang)}
-        </div>
-      </Card>
+      <BalanceCard
+        className="mt-3"
+        label={activeLabel.toUpperCase()}
+        amount={formattedAmount}
+        centered
+      />
 
       <SectionLabel right={formatPercent(ov.apy, lang)}>{t("lender.earn.apyTrend")}</SectionLabel>
       <Card>
-        <Sparkline data={ov.apyTrend} height={88} />
+        <Sparkline data={ov.apyTrend} height={96} />
+      </Card>
+
+      <SectionLabel right={formatCurrency(values[range], "USD", lang)}>
+        {activeLabel} {t("lender.earn.trendEarnings")}
+      </SectionLabel>
+      <Card>
+        <Sparkline data={earningsSeries} color="#E5B057" height={96} />
       </Card>
 
       <SectionLabel right={formatPercent(ov.utilizationTrend[ov.utilizationTrend.length - 1], lang)}>
         {t("lender.earn.utilization")}
       </SectionLabel>
       <Card>
-        <Sparkline data={ov.utilizationTrend} color="#4ADE80" height={72} />
+        <Sparkline data={ov.utilizationTrend} color="#4ADE80" height={80} />
       </Card>
 
       <SectionLabel right={formatPercent(ov.reserveCoverage, lang)}>{t("lender.earn.reserve")}</SectionLabel>

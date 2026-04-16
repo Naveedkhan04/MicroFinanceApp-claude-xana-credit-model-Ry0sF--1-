@@ -1,61 +1,93 @@
 import React, { useEffect, useMemo, useState } from "react";
 import { PhoneFrame } from "../../components/layout/PhoneFrame";
 import { LenderNav } from "../../components/layout/LenderNav";
-import { Tabs } from "../../components/ui/Tabs";
-import { Card } from "../../components/ui/Card";
 import { EmptyState } from "../../components/ui/EmptyState";
 import { Skeleton } from "../../components/ui/Skeleton";
 import { lenderApi } from "../../data/services";
-import { formatCurrency, formatDate, useI18n } from "../../i18n";
+import { formatDate, useI18n } from "../../i18n";
 import type { Transaction, TransactionKind } from "../../types";
+
+const VISIBLE_KINDS: TransactionKind[] = ["deposit", "withdrawal", "earning", "adjustment"];
+
+const ACTION_KEY: Record<TransactionKind, string> = {
+  deposit: "lender.history.actionDeposit",
+  withdrawal: "lender.history.actionWithdrawal",
+  earning: "lender.history.actionEarning",
+  adjustment: "lender.history.actionAdjustment",
+  "loan-issued": "lender.history.actionDeposit",
+  repayment: "lender.history.actionWithdrawal",
+  fee: "lender.history.actionAdjustment",
+};
 
 export const LenderHistory: React.FC = () => {
   const { t, lang } = useI18n();
-  const [tab, setTab] = useState<TransactionKind | "all">("deposit");
   const [tx, setTx] = useState<Transaction[] | null>(null);
 
   useEffect(() => {
     lenderApi.getTransactions().then(setTx);
   }, []);
 
-  const items = useMemo(() => {
+  const rows = useMemo(() => {
     if (!tx) return [];
-    return tx.filter((x) => x.kind === tab);
-  }, [tx, tab]);
+    return tx
+      .filter((x) => VISIBLE_KINDS.includes(x.kind))
+      .slice()
+      .sort((a, b) => new Date(b.at).getTime() - new Date(a.at).getTime());
+  }, [tx]);
 
   return (
     <PhoneFrame title={t("lender.history.title")} hideCancel bottomNav={<LenderNav />}>
-      <Tabs
-        tabs={[
-          { key: "deposit", label: t("lender.history.deposits") },
-          { key: "withdrawal", label: t("lender.history.withdrawals") },
-          { key: "earning", label: t("lender.history.earnings") },
-          { key: "adjustment", label: t("lender.history.adjustments") },
-        ]}
-        active={tab}
-        onChange={(k) => setTab(k as TransactionKind)}
-      />
-
-      <div className="mt-4 space-y-2">
-        {!tx ? (
-          Array.from({ length: 4 }).map((_, i) => <Skeleton key={i} variant="block" className="h-16" />)
-        ) : items.length === 0 ? (
-          <EmptyState title={t("lender.history.empty")} icon="🌙" />
-        ) : (
-          items.map((it) => (
-            <Card key={it.id} className="flex items-center justify-between py-3">
-              <div>
-                <div className="text-[14px] font-semibold capitalize text-text">{it.kind}</div>
-                <div className="text-[12px] text-text-muted">{formatDate(it.at, lang)}</div>
-                {it.note && <div className="text-[11px] text-text-muted">{it.note}</div>}
-              </div>
-              <div className="gold-text text-[16px] font-semibold">
-                {it.amount > 0 ? "+" : ""}
-                {formatCurrency(it.amount, it.currency, lang)}
-              </div>
-            </Card>
-          ))
-        )}
+      <div className="mt-1 overflow-hidden rounded-2xl border border-border-gold bg-bg-panel/80 backdrop-blur-md">
+        <table className="w-full table-fixed border-collapse text-left text-[12px]">
+          <thead>
+            <tr className="border-b border-border-gold/70 bg-surface-raised/40 text-[11px] uppercase tracking-wider text-text-muted">
+              <th className="w-[34%] px-3 py-2.5 font-semibold">{t("lender.history.colDate")}</th>
+              <th className="w-[26%] px-2 py-2.5 font-semibold">{t("lender.history.colAction")}</th>
+              <th className="w-[16%] px-2 py-2.5 font-semibold">{t("lender.history.colToken")}</th>
+              <th className="w-[24%] px-3 py-2.5 text-right font-semibold">{t("lender.history.colAmount")}</th>
+            </tr>
+          </thead>
+          <tbody>
+            {!tx ? (
+              Array.from({ length: 6 }).map((_, i) => (
+                <tr key={i} className="border-b border-border-gold/30 last:border-b-0">
+                  <td className="px-3 py-2.5"><Skeleton variant="line" className="h-3 w-20" /></td>
+                  <td className="px-2 py-2.5"><Skeleton variant="line" className="h-3 w-14" /></td>
+                  <td className="px-2 py-2.5"><Skeleton variant="line" className="h-3 w-10" /></td>
+                  <td className="px-3 py-2.5"><Skeleton variant="line" className="ml-auto h-3 w-16" /></td>
+                </tr>
+              ))
+            ) : rows.length === 0 ? (
+              <tr>
+                <td colSpan={4} className="px-3 py-8">
+                  <EmptyState title={t("lender.history.empty")} icon="🌙" />
+                </td>
+              </tr>
+            ) : (
+              rows.map((it) => {
+                const negative = it.amount < 0;
+                return (
+                  <tr
+                    key={it.id}
+                    className="border-b border-border-gold/30 last:border-b-0 hover:bg-surface-raised/30"
+                  >
+                    <td className="px-3 py-2.5 text-text-muted">{formatDate(it.at, lang)}</td>
+                    <td className="px-2 py-2.5 font-medium text-text">{t(ACTION_KEY[it.kind] as never)}</td>
+                    <td className="px-2 py-2.5 text-text-muted">{it.currency}</td>
+                    <td
+                      className={`px-3 py-2.5 text-right font-semibold tabular-nums ${
+                        negative ? "text-danger" : "gold-text"
+                      }`}
+                    >
+                      {negative ? "" : "+"}
+                      {it.amount.toFixed(2)}
+                    </td>
+                  </tr>
+                );
+              })
+            )}
+          </tbody>
+        </table>
       </div>
     </PhoneFrame>
   );

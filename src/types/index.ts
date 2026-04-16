@@ -69,6 +69,11 @@ export interface LenderOverview {
   positions: PoolPosition[];
   apyTrend: number[];
   utilizationTrend: number[];
+  earningsTrend: {
+    daily: number[];
+    monthly: number[];
+    lifetime: number[];
+  };
   reserveCoverage: number;
   allocation: {
     byType: { label: string; value: number }[];
