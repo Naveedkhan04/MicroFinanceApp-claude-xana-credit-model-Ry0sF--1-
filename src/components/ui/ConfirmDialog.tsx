@@ -73,15 +73,15 @@ export const ConfirmDialog: React.FC<Props> = ({
           </svg>
         </button>
 
-        <div className="mt-2 text-center">
+        <div className="mt-5 text-center">
           <h3 className="text-[22px] font-semibold text-gold-bright">{title}</h3>
           {message && (
-            <p className="mx-auto mt-4 max-w-[320px] text-[17px] leading-snug text-white">
+            <p className="mx-auto mt-6 max-w-[320px] text-[17px] leading-snug text-white">
               {message}
             </p>
           )}
 
-          <div className="mx-auto my-8 flex h-[110px] w-[110px] items-center justify-center">
+          <div className="mx-auto my-14 flex h-[76px] w-[76px] items-center justify-center">
             <svg viewBox="0 0 24 24" className="h-full w-full" fill="none" stroke={DANGER} strokeWidth={1.8} strokeLinecap="round" strokeLinejoin="round">
               <path d="M12 3a9 9 0 1 0 5.657 16.03" />
               <path d="M15 12h7" />

@@ -22,7 +22,10 @@ export const BorrowerLanguagePage: React.FC = () => {
 
   return (
     <PhoneFrame title={t("borrower.profile.language")} showBack>
-      <motion.div initial={{ opacity: 0, y: 8 }} animate={{ opacity: 1, y: 0 }}>
+      <motion.div initial={{ opacity: 0, y: 8 }} animate={{ opacity: 1, y: 0 }} className="pt-2">
+        <div className="mb-1.5 pl-2 text-[12.5px] text-text-muted">
+          {t("selectLanguage.title")}
+        </div>
         <div className="flex flex-col gap-3">
           {options.map((opt) => {
             const active = lang === opt.value;
@@ -32,7 +35,7 @@ export const BorrowerLanguagePage: React.FC = () => {
                 type="button"
                 onClick={() => setLang(opt.value)}
                 className={clsx(
-                  "flex items-center gap-3 rounded-pill border bg-bg-panel/80 px-5 py-4 text-left backdrop-blur-md transition-all",
+                  "flex items-center gap-3 rounded-pill bg-bg-panel/80 px-5 py-4 text-left backdrop-blur-md transition-all",
                   active
                     ? "border-gold shadow-[0_0_0_1px_rgba(224,176,87,0.45)]"
                     : "border-border-gold/60 hover:border-border-gold",

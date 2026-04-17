@@ -20,7 +20,7 @@ export const LenderWalletPage: React.FC = () => {
 
   return (
     <PhoneFrame title={t("lender.profile.wallet")} showBack>
-      <motion.div initial={{ opacity: 0, y: 8 }} animate={{ opacity: 1, y: 0 }} className="flex min-h-full flex-col">
+      <motion.div initial={{ opacity: 0, y: 8 }} animate={{ opacity: 1, y: 0 }} className="flex min-h-full flex-col pt-2">
         <Card className="mb-4 text-center">
           <div className="text-[12.5px] uppercase tracking-wider text-text-muted">
             {t("lender.profile.wallet")}

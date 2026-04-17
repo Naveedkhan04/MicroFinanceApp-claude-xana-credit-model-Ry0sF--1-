@@ -83,10 +83,10 @@ export const StatusDialog: React.FC<Props> = ({
           </svg>
         </button>
 
-        <div className="mt-2">
+        <div className="mt-5">
           <h3 className="text-[20px] font-semibold text-gold-bright">{title}</h3>
           {description && (
-            <p className="mx-auto mt-2 max-w-[300px] text-[14px] leading-snug text-text-muted">
+            <p className="mx-auto mt-6 max-w-[300px] text-[14px] leading-snug text-text-muted">
               {description}
             </p>
           )}
@@ -94,7 +94,7 @@ export const StatusDialog: React.FC<Props> = ({
           {hash && (
             <button
               onClick={copy}
-              className="mx-auto mt-3 inline-flex items-center gap-2 rounded-full border border-border-gold bg-bg-panel/60 px-3 py-1.5 text-[12px] text-gold-bright"
+              className="mx-auto mt-4 inline-flex items-center gap-2 rounded-full border border-border-gold bg-bg-panel/60 px-3 py-1.5 text-[12px] text-gold-bright"
             >
               <span className="text-text-muted">Hash:</span>
               <span className="font-mono">{hash.length > 14 ? `${hash.slice(0, 8)}…${hash.slice(-4)}` : hash}</span>
@@ -103,7 +103,7 @@ export const StatusDialog: React.FC<Props> = ({
           )}
 
           <div
-            className="mx-auto my-7 flex h-[72px] w-[72px] items-center justify-center rounded-full"
+            className="mx-auto mt-[27px] mb-[64px] flex h-[72px] w-[72px] items-center justify-center rounded-full"
             style={{ background: ringColor, boxShadow: `0 0 0 6px ${ringColor}22` }}
           >
             {isSuccess ? (

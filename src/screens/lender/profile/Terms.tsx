@@ -9,7 +9,7 @@ export const LenderTermsPage: React.FC = () => {
 
   return (
     <PhoneFrame title={t("lender.profile.terms")} showBack>
-      <motion.div initial={{ opacity: 0, y: 8 }} animate={{ opacity: 1, y: 0 }}>
+      <motion.div initial={{ opacity: 0, y: 8 }} animate={{ opacity: 1, y: 0 }} className="pt-2">
         <Card>
           <div className="space-y-3 text-[13.5px] leading-relaxed text-text-muted">
             <p>{t("lender.profile.termsBody1")}</p>

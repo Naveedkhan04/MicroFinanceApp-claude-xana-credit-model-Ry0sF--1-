@@ -14,7 +14,7 @@ export const BorrowerPersonalPage: React.FC = () => {
 
   return (
     <PhoneFrame title={t("borrower.profile.personal")} showBack>
-      <motion.div initial={{ opacity: 0, y: 8 }} animate={{ opacity: 1, y: 0 }} className="flex min-h-full flex-col">
+      <motion.div initial={{ opacity: 0, y: 8 }} animate={{ opacity: 1, y: 0 }} className="flex min-h-full flex-col pt-2">
         <DetailRow label={t("borrower.profile.personalFullName")} value={p.fullName} />
         <DetailRow label={t("borrower.profile.personalPhone")} value={p.phone} />
         <DetailRow label={t("borrower.profile.personalId")} value={p.idNumber ?? "—"} />

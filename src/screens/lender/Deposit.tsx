@@ -1,6 +1,7 @@
-import React, { useEffect, useMemo, useState } from "react";
+import React, { useContext, useEffect, useMemo, useState } from "react";
+import { createPortal } from "react-dom";
 import { useNavigate } from "react-router-dom";
-import { PhoneFrame } from "../../components/layout/PhoneFrame";
+import { PhoneFrame, PhoneFrameOverlayContext } from "../../components/layout/PhoneFrame";
 import { LenderNav } from "../../components/layout/LenderNav";
 import { SectionLabel } from "../../components/ui/SectionLabel";
 import { Card } from "../../components/ui/Card";
@@ -30,6 +31,20 @@ export const Deposit: React.FC = () => {
   useEffect(() => {
     lenderApi.getPools().then(setPools);
   }, []);
+
+  useEffect(() => {
+    if (!confirmOpen) return;
+    const onKey = (e: KeyboardEvent) => {
+      if (e.key === "Escape") setConfirmOpen(false);
+    };
+    const prev = document.body.style.overflow;
+    document.body.style.overflow = "hidden";
+    window.addEventListener("keydown", onKey);
+    return () => {
+      window.removeEventListener("keydown", onKey);
+      document.body.style.overflow = prev;
+    };
+  }, [confirmOpen]);
 
   const selectedPool = useMemo(() => pools.find((p) => p.id === selected), [pools, selected]);
   const amountNum = Number(amount) || 0;
@@ -112,28 +127,25 @@ export const Deposit: React.FC = () => {
         })}
       </div>
 
-      {confirmOpen && selectedPool && (
-        <div className="fixed inset-0 z-50 flex items-end bg-black/60 px-3 pb-6 md:items-center md:justify-center">
-          <Card className="w-full max-w-md">
-            <h3 className="mb-1 text-[17px] font-semibold text-gold">{t("lender.deposit.confirmTitle")}</h3>
-            <p className="mb-4 text-[13px] text-text-muted">
-              {t("lender.deposit.confirmDesc", { amount: formatCurrency(amountNum, "USDT", lang), pool: poolCopy[selectedPool.id] })}
-            </p>
-            <div className="mb-4 space-y-2 rounded-xl bg-surface p-3 text-[13px]">
-              <Row label={t("lender.deposit.expectedApy")} value={formatPercent(selectedPool.apy, lang)} />
-              <Row label={t("lender.deposit.risk")} value={t(("common.risk." + selectedPool.risk) as "common.risk.low")} />
-              <Row label={t("lender.deposit.liquidity")} value={selectedPool.liquidityTerms} />
-            </div>
-            <div className="flex gap-2">
-              <PrimaryButton variant="outline" onClick={() => setConfirmOpen(false)}>
-                {t("app.cancel")}
-              </PrimaryButton>
-              <PrimaryButton loading={loading} onClick={handleConfirm}>
-                {t("app.confirm")}
-              </PrimaryButton>
-            </div>
-          </Card>
-        </div>
+      {selectedPool && (
+        <ConfirmDepositSheet
+          open={confirmOpen}
+          title={t("lender.deposit.confirmTitle")}
+          description={t("lender.deposit.confirmDesc", {
+            amount: formatCurrency(amountNum, "USDT", lang),
+            pool: poolCopy[selectedPool.id],
+          })}
+          rows={[
+            { label: t("lender.deposit.expectedApy"), value: formatPercent(selectedPool.apy, lang) },
+            { label: t("lender.deposit.risk"), value: t(("common.risk." + selectedPool.risk) as "common.risk.low") },
+            { label: t("lender.deposit.liquidity"), value: selectedPool.liquidityTerms },
+          ]}
+          cancelLabel={t("app.cancel")}
+          confirmLabel={t("app.confirm")}
+          loading={loading}
+          onCancel={() => setConfirmOpen(false)}
+          onConfirm={handleConfirm}
+        />
       )}
 
       <StatusDialog
@@ -165,3 +177,82 @@ const Row: React.FC<{ label: string; value: string }> = ({ label, value }) => (
     <span className="font-medium text-text">{value}</span>
   </div>
 );
+
+interface ConfirmDepositSheetProps {
+  open: boolean;
+  title: string;
+  description: string;
+  rows: { label: string; value: string }[];
+  cancelLabel: string;
+  confirmLabel: string;
+  loading: boolean;
+  onCancel: () => void;
+  onConfirm: () => void;
+}
+
+const ConfirmDepositSheet: React.FC<ConfirmDepositSheetProps> = ({
+  open,
+  title,
+  description,
+  rows,
+  cancelLabel,
+  confirmLabel,
+  loading,
+  onCancel,
+  onConfirm,
+}) => {
+  const overlay = useContext(PhoneFrameOverlayContext);
+
+  const node = (
+    <div
+      className={clsx(
+        "absolute inset-0 z-[120] flex items-end justify-center transition-opacity",
+        open ? "pointer-events-auto opacity-100" : "pointer-events-none opacity-0",
+      )}
+      aria-hidden={!open}
+      role="dialog"
+      aria-modal="true"
+    >
+      <div className="absolute inset-0 bg-black/75 backdrop-blur-sm" onClick={onCancel} />
+      <div
+        className={clsx(
+          "relative z-10 w-full max-w-[420px] rounded-t-3xl border-t border-border-gold bg-bg-panel px-6 pt-5 pb-8 shadow-2xl transition-transform",
+          open ? "translate-y-0" : "translate-y-full",
+        )}
+      >
+        <button
+          type="button"
+          onClick={onCancel}
+          aria-label={cancelLabel}
+          className="absolute right-4 top-4 flex h-8 w-8 items-center justify-center rounded-full border border-white/30 text-white/80 transition-colors hover:bg-white/10"
+        >
+          <svg viewBox="0 0 24 24" className="h-4 w-4 fill-none stroke-current" strokeWidth={2.5} strokeLinecap="round" strokeLinejoin="round">
+            <path d="M6 6l12 12M18 6L6 18" />
+          </svg>
+        </button>
+
+        <div className="mt-5">
+          <h3 className="text-center text-[20px] font-semibold text-gold-bright">{title}</h3>
+          <p className="mt-6 text-center text-[14px] leading-snug text-white">{description}</p>
+
+          <div className="mt-6 space-y-2 rounded-xl bg-surface p-4 text-[13px]">
+            {rows.map((r) => (
+              <Row key={r.label} label={r.label} value={r.value} />
+            ))}
+          </div>
+
+          <div className="mt-16 flex gap-3">
+            <PrimaryButton variant="outline" onClick={onCancel}>
+              {cancelLabel}
+            </PrimaryButton>
+            <PrimaryButton loading={loading} onClick={onConfirm}>
+              {confirmLabel}
+            </PrimaryButton>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+
+  return createPortal(node, overlay ?? document.body);
+};

@@ -13,7 +13,7 @@ export const LenderStatementsPage: React.FC = () => {
 
   return (
     <PhoneFrame title={t("lender.profile.statements")} showBack>
-      <motion.div initial={{ opacity: 0, y: 8 }} animate={{ opacity: 1, y: 0 }}>
+      <motion.div initial={{ opacity: 0, y: 8 }} animate={{ opacity: 1, y: 0 }} className="pt-2">
         <SectionLabel>{t("lender.profile.statementsHeader")}</SectionLabel>
         {MONTHS.map((m) => (
           <button

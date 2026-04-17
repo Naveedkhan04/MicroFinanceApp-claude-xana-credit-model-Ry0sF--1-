@@ -3,7 +3,7 @@ import { motion } from "framer-motion";
 import { PhoneFrame } from "../../../components/layout/PhoneFrame";
 import { Card } from "../../../components/ui/Card";
 import { StatusChip } from "../../../components/ui/StatusChip";
-import { DetailRow } from "../../../components/ui/SettingsItems";
+import { FieldRow } from "../../../components/ui/SettingsItems";
 import { AvatarUploader } from "../../../components/ui/AvatarUploader";
 import { lenderProfile } from "../../../data/mockData";
 import { formatDate, useI18n } from "../../../i18n";
@@ -14,7 +14,7 @@ export const LenderProfileDetails: React.FC = () => {
 
   return (
     <PhoneFrame title={t("lender.profile.details")} showBack>
-      <motion.div initial={{ opacity: 0, y: 8 }} animate={{ opacity: 1, y: 0 }}>
+      <motion.div initial={{ opacity: 0, y: 8 }} animate={{ opacity: 1, y: 0 }} className="pt-2">
         <Card className="mb-4 text-center">
           <div className="mx-auto mb-3 flex justify-center">
             <AvatarUploader storageKey="xana.lender.avatar" size={96} />
@@ -27,14 +27,15 @@ export const LenderProfileDetails: React.FC = () => {
           <p className="mt-3 text-[12.5px] text-text-muted">{t("lender.profile.detailsHint")}</p>
         </Card>
 
-        <DetailRow label={t("lender.profile.accountId")} value={p.id} mono />
-        <DetailRow label={t("lender.profile.walletAddress")} value={p.walletAddress} mono />
-        <DetailRow label={t("lender.profile.email")} value={p.email ?? "—"} />
-        <DetailRow
+        <FieldRow label={t("lender.profile.accountId")} value={p.id} mono />
+        <FieldRow label={t("lender.profile.walletAddress")} value={p.walletAddress} mono />
+        <FieldRow label={t("lender.profile.email")} value={p.email ?? "—"} />
+        <FieldRow
           label={t("lender.profile.kyc")}
-          value={<StatusChip tone="green">{t("common.kycVerified")}</StatusChip>}
+          value=""
+          valueNode={<StatusChip tone="green">{t("common.kycVerified")}</StatusChip>}
         />
-        <DetailRow label={t("lender.profile.memberSince")} value={formatDate(p.createdAt, lang)} />
+        <FieldRow label={t("lender.profile.memberSince")} value={formatDate(p.createdAt, lang)} />
       </motion.div>
     </PhoneFrame>
   );

@@ -49,12 +49,12 @@ export const TopBar: React.FC<Props> = ({
           type="button"
           onClick={() => (onBack ? onBack() : navigate(-1))}
           aria-label="Back"
-          className="flex h-8 w-8 items-center justify-center rounded-full border border-border-gold text-gold-bright transition-colors hover:bg-gold/10"
+          className="flex h-9 w-9 items-center justify-center rounded-full border border-border-gold text-gold-bright transition-colors hover:bg-gold/10"
         >
           <svg
             viewBox="0 0 24 24"
-            className="h-4 w-4 fill-none stroke-current"
-            strokeWidth={2.5}
+            className="h-5 w-5 fill-none stroke-current"
+            strokeWidth={2}
             strokeLinecap="round"
             strokeLinejoin="round"
           >

@@ -159,7 +159,7 @@ export const OTPLogin: React.FC = () => {
               <span className="text-gold">{fullPhone}</span>
             </p>
 
-            <div className="flex justify-center gap-2">
+            <div className="flex justify-center gap-1.5">
               {code.map((d, i) => (
                 <input
                   key={i}
@@ -172,7 +172,7 @@ export const OTPLogin: React.FC = () => {
                   inputMode="numeric"
                   maxLength={1}
                   className={clsx(
-                    "h-14 w-14 rounded-2xl border bg-bg-panel/80 text-center text-[26px] font-semibold text-gold outline-none",
+                    "h-14 w-[54px] rounded-2xl border bg-bg-panel/80 text-center text-[26px] font-semibold text-gold outline-none",
                     err ? "border-danger" : "border-border-gold focus:border-gold",
                   )}
                 />

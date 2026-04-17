@@ -3,7 +3,7 @@ import { motion } from "framer-motion";
 import { PhoneFrame } from "../../../components/layout/PhoneFrame";
 import { Card } from "../../../components/ui/Card";
 import { StatusChip } from "../../../components/ui/StatusChip";
-import { DetailRow } from "../../../components/ui/SettingsItems";
+import { FieldRow } from "../../../components/ui/SettingsItems";
 import { useI18n } from "../../../i18n";
 
 export const LenderKycPage: React.FC = () => {
@@ -11,7 +11,7 @@ export const LenderKycPage: React.FC = () => {
 
   return (
     <PhoneFrame title={t("lender.profile.kyc")} showBack>
-      <motion.div initial={{ opacity: 0, y: 8 }} animate={{ opacity: 1, y: 0 }}>
+      <motion.div initial={{ opacity: 0, y: 8 }} animate={{ opacity: 1, y: 0 }} className="pt-2">
         <Card className="mb-4 text-center">
           <div
             className="mx-auto mb-3 flex h-14 w-14 items-center justify-center rounded-full"
@@ -37,12 +37,13 @@ export const LenderKycPage: React.FC = () => {
           </div>
         </Card>
 
-        <DetailRow
+        <FieldRow
           label="Status"
-          value={<StatusChip tone="green">{t("common.kycVerified")}</StatusChip>}
+          value=""
+          valueNode={<StatusChip tone="green">{t("common.kycVerified")}</StatusChip>}
         />
-        <DetailRow label={t("lender.profile.kycLevel")} value={t("lender.profile.kycTier2")} />
-        <DetailRow label={t("lender.profile.kycVerifiedOn")} value="Apr 12, 2026" />
+        <FieldRow label={t("lender.profile.kycLevel")} value={t("lender.profile.kycTier2")} />
+        <FieldRow label={t("lender.profile.kycVerifiedOn")} value="Apr 12, 2026" />
 
         <p className="mt-3 px-1 text-[12.5px] leading-snug text-text-muted">
           {t("lender.profile.kycTier2Note")}

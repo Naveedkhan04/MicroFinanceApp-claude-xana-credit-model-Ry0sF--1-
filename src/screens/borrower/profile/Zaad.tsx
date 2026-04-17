@@ -2,7 +2,7 @@ import React from "react";
 import { motion } from "framer-motion";
 import { PhoneFrame } from "../../../components/layout/PhoneFrame";
 import { PrimaryButton } from "../../../components/ui/PrimaryButton";
-import { DetailRow } from "../../../components/ui/SettingsItems";
+import { FieldRow } from "../../../components/ui/SettingsItems";
 import { borrowerProfile } from "../../../data/mockData";
 import { useI18n } from "../../../i18n";
 import { useApp } from "../../../context/AppContext";
@@ -14,8 +14,8 @@ export const BorrowerZaadPage: React.FC = () => {
 
   return (
     <PhoneFrame title={t("borrower.profile.zaad")} showBack>
-      <motion.div initial={{ opacity: 0, y: 8 }} animate={{ opacity: 1, y: 0 }} className="flex min-h-full flex-col">
-        <DetailRow label={t("borrower.profile.zaadCurrent")} value={p.zaadNumber} />
+      <motion.div initial={{ opacity: 0, y: 8 }} animate={{ opacity: 1, y: 0 }} className="flex min-h-full flex-col pt-2">
+        <FieldRow label={t("borrower.profile.zaadCurrent")} value={p.zaadNumber} />
 
         <p className="mt-3 px-1 text-[12.5px] leading-snug text-text-muted">
           {t("borrower.profile.zaadNote")}

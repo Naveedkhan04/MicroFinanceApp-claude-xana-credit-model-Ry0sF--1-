@@ -52,7 +52,6 @@ export const LenderProfile: React.FC = () => {
         </Card>
 
         <div className="space-y-2">
-          <MenuRow icon="💳" label={t("lender.profile.wallet")} value={p.walletAddress} onClick={() => navigate("/lender/profile/wallet")} />
           <MenuRow icon="📧" label={t("lender.profile.email")} value={p.email ?? "—"} onClick={() => navigate("/lender/profile/email")} />
           <MenuRow icon="🪪" label={t("lender.profile.kyc")} value={<StatusChip tone="green">{t("common.kycVerified")}</StatusChip>} onClick={() => navigate("/lender/profile/kyc")} />
           <MenuRow icon="📄" label={t("lender.profile.statements")} onClick={() => navigate("/lender/profile/statements")} />

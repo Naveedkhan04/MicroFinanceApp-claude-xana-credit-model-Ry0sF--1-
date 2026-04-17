@@ -1,7 +1,7 @@
 import React from "react";
 import { motion } from "framer-motion";
 import { PhoneFrame } from "../../../components/layout/PhoneFrame";
-import { ActionItem } from "../../../components/ui/SettingsItems";
+import { FieldRow } from "../../../components/ui/SettingsItems";
 import { useI18n } from "../../../i18n";
 import { useApp } from "../../../context/AppContext";
 
@@ -11,20 +11,30 @@ export const LenderSecurityPage: React.FC = () => {
 
   return (
     <PhoneFrame title={t("lender.profile.security")} showBack>
-      <motion.div initial={{ opacity: 0, y: 8 }} animate={{ opacity: 1, y: 0 }}>
-        <ActionItem
+      <motion.div initial={{ opacity: 0, y: 8 }} animate={{ opacity: 1, y: 0 }} className="pt-2">
+        <FieldRow
           label={t("lender.profile.secChangePw")}
-          onClick={() => pushToast(t("lender.profile.secResetSent"), "success")}
+          value="••••••••"
+          action={{
+            label: "Change",
+            onClick: () => pushToast(t("lender.profile.secResetSent"), "success"),
+          }}
         />
-        <ActionItem
+        <FieldRow
           label={t("lender.profile.secTwoFA")}
           value={t("lender.profile.sec2FAOn")}
-          onClick={() => pushToast(t("lender.profile.sec2FAMsg"), "default")}
+          action={{
+            label: "Manage",
+            onClick: () => pushToast(t("lender.profile.sec2FAMsg"), "default"),
+          }}
         />
-        <ActionItem
+        <FieldRow
           label={t("lender.profile.secSessions")}
           value={t("lender.profile.secThisDevice")}
-          onClick={() => pushToast(t("lender.profile.secSessionsMsg"), "default")}
+          action={{
+            label: "View",
+            onClick: () => pushToast(t("lender.profile.secSessionsMsg"), "default"),
+          }}
         />
       </motion.div>
     </PhoneFrame>
