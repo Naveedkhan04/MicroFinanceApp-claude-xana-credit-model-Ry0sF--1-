@@ -57,7 +57,21 @@ export const BorrowerHome: React.FC = () => {
   const canBorrow = profile.eligibility === "eligible" && !loan;
 
   return (
-    <PhoneFrame title={t("nav.borrower.home")} hideCancel bottomNav={<BorrowerNav />}>
+    <PhoneFrame
+      title={t("nav.borrower.home")}
+      hideCancel
+      bottomNav={<BorrowerNav />}
+      footer={
+        loan ? (
+          <div className="flex gap-2">
+            <PrimaryButton onClick={() => navigate("/borrower/repay")}>{t("borrower.home.repay")}</PrimaryButton>
+            <PrimaryButton variant="outline" onClick={() => navigate("/borrower/active")}>
+              {t("borrower.active.breakdown")}
+            </PrimaryButton>
+          </div>
+        ) : undefined
+      }
+    >
       <motion.div initial={{ opacity: 0, y: 8 }} animate={{ opacity: 1, y: 0 }}>
         <div className="mb-3 flex items-center justify-center gap-2">
           {/* <h2 className="text-[22px] font-semibold text-gold">{t("borrower.home.creditLimit")}</h2> */}
@@ -101,12 +115,6 @@ export const BorrowerHome: React.FC = () => {
                   {t("borrower.home.dueDate")}: {formatDate(loan.dueAt, lang)}
                 </span>
                 <span>{daysLeft} {t("common.days")}</span>
-              </div>
-              <div className="mt-4 flex gap-2">
-                <PrimaryButton onClick={() => navigate("/borrower/repay")}>{t("borrower.home.repay")}</PrimaryButton>
-                <PrimaryButton variant="outline" onClick={() => navigate("/borrower/active")}>
-                  {t("borrower.active.breakdown")}
-                </PrimaryButton>
               </div>
             </Card>
           </>

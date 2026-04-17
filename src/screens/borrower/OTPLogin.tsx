@@ -153,7 +153,7 @@ export const OTPLogin: React.FC = () => {
           </div>
         ) : (
           <>
-            <p className="text-center text-[13px] text-text-muted">
+            <p className="text-center text-[16px] text-text-muted">
               {t("borrower.otp.codeLabel")}
               <br />
               <span className="text-gold">{fullPhone}</span>

@@ -70,7 +70,7 @@ export const SelectDuration: React.FC = () => {
 };
 
 const Info: React.FC<{ label: string; value: string }> = ({ label, value }) => (
-  <div className="rounded-xl bg-surface p-2">
+  <div className="rounded-xl bg-surface py-2">
     <div className="text-text-muted">{label}</div>
     <div className="font-medium text-text">{value}</div>
   </div>

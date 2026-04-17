@@ -10,12 +10,12 @@ export const LenderSupportPage: React.FC = () => {
 
   return (
     <PhoneFrame title={t("lender.profile.support")} showBack>
-      <motion.div initial={{ opacity: 0, y: 8 }} animate={{ opacity: 1, y: 0 }}>
+      <motion.div initial={{ opacity: 0, y: 8 }} animate={{ opacity: 1, y: 0 }} className="flex min-h-full flex-col">
         <DetailRow label={t("lender.profile.supportEmail")} value={t("lender.profile.supportEmailValue")} />
         <DetailRow label={t("lender.profile.supportHours")} value={t("lender.profile.supportHoursValue")} />
         <DetailRow label={t("lender.profile.supportResponse")} value={t("lender.profile.supportResponseValue")} />
 
-        <div className="mt-6">
+        <div className="mt-auto pt-6 mb-[100px]">
           <PrimaryButton onClick={() => { window.location.href = "mailto:support@xana.app"; }}>
             {t("lender.profile.supportCta")}
           </PrimaryButton>

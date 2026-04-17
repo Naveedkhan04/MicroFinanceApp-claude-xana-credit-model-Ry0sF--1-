@@ -17,7 +17,7 @@ export const BorrowerProfileDetails: React.FC = () => {
 
   return (
     <PhoneFrame title={t("borrower.profile.details")} showBack>
-      <motion.div initial={{ opacity: 0, y: 8 }} animate={{ opacity: 1, y: 0 }}>
+      <motion.div initial={{ opacity: 0, y: 8 }} animate={{ opacity: 1, y: 0 }} className="flex min-h-full flex-col">
         <Card className="mb-4 text-center">
           <div className="mx-auto mb-3 flex justify-center">
             <AvatarUploader storageKey="xana.borrower.avatar" size={96} />
@@ -38,7 +38,7 @@ export const BorrowerProfileDetails: React.FC = () => {
         <DetailRow label={t("borrower.profile.personalCity")} value={p.city ?? "—"} />
         <DetailRow label={t("borrower.profile.memberSince")} value={formatDate(p.createdAt, lang)} />
 
-        <div className="mt-6">
+        <div className="mt-auto pt-6 mb-[100px]">
           <PrimaryButton variant="outline" onClick={() => navigate("/borrower/onboarding")}>
             {t("borrower.profile.personalEdit")}
           </PrimaryButton>

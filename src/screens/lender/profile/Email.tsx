@@ -23,7 +23,7 @@ export const LenderEmailPage: React.FC = () => {
 
   return (
     <PhoneFrame title={t("lender.profile.email")} showBack>
-      <motion.div initial={{ opacity: 0, y: 8 }} animate={{ opacity: 1, y: 0 }}>
+      <motion.div initial={{ opacity: 0, y: 8 }} animate={{ opacity: 1, y: 0 }} className="flex min-h-full flex-col">
         <DetailRow label={t("lender.profile.emailCurrent")} value={p.email ?? "—"} />
 
         <label className="mb-2 mt-5 block text-[12.5px] text-text-muted">
@@ -34,10 +34,10 @@ export const LenderEmailPage: React.FC = () => {
           value={value}
           onChange={(e) => setValue(e.target.value)}
           placeholder={t("lender.profile.emailPlaceholder")}
-          className="w-full rounded-xl border border-border-gold bg-bg-panel/80 px-4 py-3 text-[15px] text-text outline-none focus:border-gold"
+          className="w-full rounded-pill border border-border-gold bg-bg-panel/80 px-5 py-3 text-[15px] text-text outline-none focus:border-gold"
         />
 
-        <div className="mt-6">
+        <div className="mt-auto pt-6 mb-[100px]">
           <PrimaryButton onClick={submit} disabled={!value}>
             {t("lender.profile.emailSend")}
           </PrimaryButton>

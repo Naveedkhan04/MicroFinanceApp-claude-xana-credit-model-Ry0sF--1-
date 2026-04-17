@@ -15,7 +15,7 @@ export const Chip: React.FC<Props> = ({ active, onClick, children, className, si
     onClick={onClick}
     className={clsx(
       "rounded-pill border font-semibold transition-colors",
-      size === "md" ? "px-5 py-2 text-sm" : "px-3 py-1 text-xs",
+      size === "md" ? "px-5 py-0.5 text-sm" : "px-3 py-1 text-xs",
       active
         ? "bg-gold text-[#3B2608] border-gold"
         : "border-gold text-gold hover:bg-gold/10",

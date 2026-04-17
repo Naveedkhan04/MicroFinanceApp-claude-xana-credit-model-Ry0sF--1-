@@ -19,7 +19,7 @@ export const LenderStatementsPage: React.FC = () => {
           <button
             key={m}
             onClick={() => pushToast(t("lender.profile.statementsDownload", { month: m }), "success")}
-            className="mb-2 flex w-full items-center justify-between rounded-xl border border-border-gold bg-bg-panel/60 px-4 py-3 text-left text-[14px] font-semibold text-gold-bright transition-colors hover:bg-bg-panel/80"
+            className="mb-2 flex w-full items-center justify-between rounded-pill border border-border-gold bg-bg-panel/60 px-5 py-3 text-left text-[14px] font-semibold text-gold-bright transition-colors hover:bg-bg-panel/80"
           >
             <span>{m}</span>
             <span className="flex items-center gap-2 text-[12.5px] text-text-muted">

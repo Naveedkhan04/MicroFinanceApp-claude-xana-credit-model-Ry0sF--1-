@@ -32,7 +32,7 @@ export const BottomNav: React.FC<Props> = ({ items }) => {
             )}
           >
             <span className="[&>svg]:h-[22px] [&>svg]:w-[22px]">{it.icon}</span>
-            <span>{it.label}</span>
+            <span className="whitespace-nowrap">{it.label}</span>
           </NavLink>
         );
       })}

@@ -20,7 +20,7 @@ export const LenderWalletPage: React.FC = () => {
 
   return (
     <PhoneFrame title={t("lender.profile.wallet")} showBack>
-      <motion.div initial={{ opacity: 0, y: 8 }} animate={{ opacity: 1, y: 0 }}>
+      <motion.div initial={{ opacity: 0, y: 8 }} animate={{ opacity: 1, y: 0 }} className="flex min-h-full flex-col">
         <Card className="mb-4 text-center">
           <div className="text-[12.5px] uppercase tracking-wider text-text-muted">
             {t("lender.profile.wallet")}
@@ -37,7 +37,7 @@ export const LenderWalletPage: React.FC = () => {
           {t("lender.profile.walletNote")}
         </p>
 
-        <div className="mt-6">
+        <div className="mt-auto pt-6 mb-[100px]">
           <PrimaryButton onClick={copy}>{t("lender.profile.walletCopy")}</PrimaryButton>
         </div>
       </motion.div>

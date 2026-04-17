@@ -43,7 +43,16 @@ export const ActiveLoan: React.FC = () => {
   const overdue = daysLeft === 0 && loan.amountRepaid < loan.total;
 
   return (
-    <PhoneFrame title={t("borrower.active.title")} bottomNav={<BorrowerNav />}>
+    <PhoneFrame
+      title={t("borrower.active.title")}
+      showBack
+      bottomNav={<BorrowerNav />}
+      footer={
+        <PrimaryButton onClick={() => navigate("/borrower/repay")}>
+          {t("borrower.active.repay")}
+        </PrimaryButton>
+      }
+    >
       <Card>
         <div className="flex items-center gap-4">
           <TokenIcon kind="xana" size={54} />
@@ -85,10 +94,6 @@ export const ActiveLoan: React.FC = () => {
         <Row label={t("borrower.review.destination")} value={loan.disbursementTarget} />
         <Row label={t("borrower.review.due")} value={formatDate(loan.dueAt, lang)} />
       </Card>
-
-      <div className="mt-5">
-        <PrimaryButton onClick={() => navigate("/borrower/repay")}>{t("borrower.active.repay")}</PrimaryButton>
-      </div>
     </PhoneFrame>
   );
 };

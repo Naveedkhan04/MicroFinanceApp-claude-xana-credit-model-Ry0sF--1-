@@ -33,7 +33,7 @@ export const BalanceCard: React.FC<Props> = ({
   const weightCls = bold ? "font-bold" : "font-light";
   return (
   <Card className={clsx("py-6", textAlignCls, className)}>
-    {label && <div className="mb-1 text-[13px] text-text-muted">{label}</div>}
+    {label && <div className="mb-1 text-[13px] text-text-muted text-left">{label}</div>}
     <div className={clsx("flex items-baseline gap-1", "justify-end")}>
       <span className={clsx("text-[26px] text-gold-dim", weightCls)}>{currency}</span>
       <span className={clsx("gold-text text-[40px] tracking-tight leading-[48px]", weightCls)}>{amount}</span>

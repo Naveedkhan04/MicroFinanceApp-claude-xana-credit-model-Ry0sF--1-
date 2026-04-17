@@ -55,10 +55,10 @@ export const BorrowerHistory: React.FC = () => {
       <div className="mt-1 overflow-hidden rounded-2xl border border-border-gold bg-bg-panel/80 backdrop-blur-md">
         <table className="w-full table-fixed border-collapse text-left text-[12px]">
           <thead>
-            <tr className="border-b border-border-gold/70 bg-surface-raised/40 text-[11px] uppercase tracking-wider text-text-muted">
+            <tr className="whitespace-nowrap border-b border-border-gold/70 bg-surface-raised/40 text-[11px] uppercase tracking-wider text-text-muted">
               <th className="w-[34%] px-3 py-2.5 font-semibold">{t("borrower.history.colDate")}</th>
               <th className="w-[26%] px-2 py-2.5 font-semibold">{t("borrower.history.colAction")}</th>
-              <th className="w-[16%] px-2 py-2.5 font-semibold">{t("borrower.history.colToken")}</th>
+              <th className="w-[16%] whitespace-nowrap px-2 py-2.5 font-semibold">{t("borrower.history.colToken")}</th>
               <th className="w-[24%] px-3 py-2.5 text-right font-semibold">{t("borrower.history.colAmount")}</th>
             </tr>
           </thead>

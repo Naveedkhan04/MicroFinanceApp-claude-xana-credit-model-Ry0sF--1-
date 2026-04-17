@@ -7,7 +7,6 @@ import { BalanceCard } from "../../components/ui/BalanceCard";
 import { Card } from "../../components/ui/Card";
 import { PrimaryButton } from "../../components/ui/PrimaryButton";
 import { StatCard } from "../../components/ui/StatCard";
-import { SectionLabel } from "../../components/ui/SectionLabel";
 import { Skeleton } from "../../components/ui/Skeleton";
 import { DepositIcon, WithdrawIcon } from "../../components/layout/NavIcons";
 import { lenderApi } from "../../data/services";
@@ -49,8 +48,20 @@ export const LenderHome: React.FC = () => {
 
   const firstTime = ov.totalBalance === 0;
 
+  const actionButtons = !firstTime ? (
+    <div className="grid grid-cols-2 gap-3">
+      <PrimaryButton leftIcon={<DepositIcon />} onClick={() => navigate("/lender/deposit")}>{t("lender.home.deposit")}</PrimaryButton>
+      <PrimaryButton variant="outline" leftIcon={<WithdrawIcon />} onClick={() => navigate("/lender/withdraw")}>{t("lender.home.withdraw")}</PrimaryButton>
+    </div>
+  ) : undefined;
+
   return (
-    <PhoneFrame title={t("nav.lender.home")} hideCancel bottomNav={<LenderNav />}>
+    <PhoneFrame
+      title={t("nav.lender.home")}
+      hideCancel
+      bottomNav={<LenderNav />}
+      footer={actionButtons}
+    >
       <motion.div initial={{ opacity: 0, y: 8 }} animate={{ opacity: 1, y: 0 }}>
         <BalanceCard
           amount={formatCurrency(ov.totalBalance, "USD", lang).replace(/[^\d.,]/g, "")}
@@ -73,12 +84,6 @@ export const LenderHome: React.FC = () => {
               <StatCard label={t("lender.home.earningsToday")} value={formatCurrency(ov.earningsToday, "USD", lang)} />
               <StatCard label={t("lender.home.activeCapital")} value={formatCurrency(ov.activeCapital, "USD", lang)} />
               <StatCard label={t("lender.home.totalEarnings")} value={formatCurrency(ov.totalEarnings, "USD", lang)} accent />
-            </div>
-
-            <SectionLabel>{t("lender.home.available")}</SectionLabel>
-            <div className="grid grid-cols-2 gap-3">
-              <PrimaryButton leftIcon={<DepositIcon />} onClick={() => navigate("/lender/deposit")}>{t("lender.home.deposit")}</PrimaryButton>
-              <PrimaryButton variant="outline" leftIcon={<WithdrawIcon />} onClick={() => navigate("/lender/withdraw")}>{t("lender.home.withdraw")}</PrimaryButton>
             </div>
 
             <Card className="mt-4 flex items-center justify-between">

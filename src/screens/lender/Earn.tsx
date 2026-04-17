@@ -56,7 +56,7 @@ export const Earn: React.FC = () => {
               key={r.key}
               onClick={() => setRange(r.key)}
               className={clsx(
-                "relative flex-1 whitespace-nowrap py-3 text-center text-[15px] font-semibold transition-colors",
+                "relative flex-1 whitespace-nowrap py-2 text-center text-[15px] font-semibold transition-colors",
                 isActive ? "text-gold" : "text-text-muted hover:text-text",
               )}
             >

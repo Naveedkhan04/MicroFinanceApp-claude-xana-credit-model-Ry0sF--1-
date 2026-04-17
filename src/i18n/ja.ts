@@ -28,7 +28,7 @@ export const ja: Dict = {
     lender: {
       home: "ホーム",
       earn: "収益",
-      portfolio: "ポートフォリオ",
+      portfolio: "作品集",
       history: "履歴",
       profile: "プロフィール",
     },
@@ -81,7 +81,7 @@ export const ja: Dict = {
       reserve: "準備金カバー率",
     },
     portfolio: {
-      title: "ポートフォリオ",
+      title: "作品集",
       principal: "投下元本",
       byType: "ローン種別ごとの配分",
       byDuration: "期間ごとの配分",

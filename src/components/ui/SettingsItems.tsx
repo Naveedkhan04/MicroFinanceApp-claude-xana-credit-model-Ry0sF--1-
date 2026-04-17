@@ -9,7 +9,7 @@ export const DetailRow: React.FC<{
 }> = ({ label, value, mono, className }) => (
   <div
     className={clsx(
-      "mb-2 flex items-center justify-between gap-3 rounded-xl border border-border-gold bg-bg-panel/60 px-4 py-3",
+      "mb-2 flex items-center justify-between gap-3 rounded-pill border border-border-gold bg-bg-panel/60 px-5 py-4",
       className,
     )}
   >
@@ -32,7 +32,7 @@ export const ActionItem: React.FC<{
 }> = ({ label, value, onClick }) => (
   <button
     onClick={onClick}
-    className="mb-2 flex w-full items-center justify-between rounded-xl border border-border-gold bg-bg-panel/60 px-4 py-3 text-left transition-colors hover:bg-bg-panel/80"
+    className="mb-2 flex w-full items-center justify-between rounded-pill border border-border-gold bg-bg-panel/60 px-5 py-3 text-left transition-colors hover:bg-bg-panel/80"
   >
     <span className="text-[14px] font-semibold text-gold-bright">{label}</span>
     <span className="flex items-center gap-2 text-[12.5px] text-text-muted">
@@ -47,7 +47,7 @@ export const ToggleRow: React.FC<{
   checked: boolean;
   onChange: (v: boolean) => void;
 }> = ({ label, checked, onChange }) => (
-  <div className="mb-2 flex items-center justify-between rounded-xl border border-border-gold bg-bg-panel/60 px-4 py-3">
+  <div className="mb-2 flex items-center justify-between rounded-pill border border-border-gold bg-bg-panel/60 px-5 py-3">
     <span className="text-[14px] text-gold-bright">{label}</span>
     <button
       onClick={() => onChange(!checked)}
@@ -78,7 +78,7 @@ export const MenuRow: React.FC<{
     type="button"
     onClick={onClick}
     disabled={!onClick}
-    className="flex w-full items-center gap-4 rounded-2xl border border-border-gold bg-bg-panel/80 px-5 py-4 backdrop-blur-md transition-transform active:scale-[0.99] disabled:cursor-default"
+    className="flex w-full items-center gap-4 rounded-pill border border-border-gold bg-bg-panel/80 px-5 py-4 backdrop-blur-md transition-transform active:scale-[0.99] disabled:cursor-default"
   >
     <span className="w-6 text-center text-[18px] text-gold">{icon}</span>
     <span className="flex-1 text-left text-[15px] font-semibold text-gold-bright">{label}</span>

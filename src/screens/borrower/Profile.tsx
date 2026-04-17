@@ -31,7 +31,7 @@ export const BorrowerProfile: React.FC = () => {
 
   return (
     <PhoneFrame title={t("borrower.profile.title")} hideCancel bottomNav={<BorrowerNav />}>
-      <motion.div initial={{ opacity: 0, y: 8 }} animate={{ opacity: 1, y: 0 }}>
+      <motion.div initial={{ opacity: 0, y: 8 }} animate={{ opacity: 1, y: 0 }} className="flex min-h-full flex-col">
         <Card
           className="mb-4"
           interactive
@@ -59,7 +59,7 @@ export const BorrowerProfile: React.FC = () => {
           <MenuRow icon="📃" label={t("borrower.profile.terms")} onClick={() => navigate("/borrower/profile/terms")} />
         </div>
 
-        <div className="mt-10">
+        <div className="mt-auto pt-16 -mb-5">
           <button
             onClick={() => setLogoutOpen(true)}
             className="flex w-full items-center justify-center gap-2 rounded-pill border border-border-gold bg-transparent py-4 text-[15px] font-semibold text-gold-bright transition-colors hover:bg-gold/10"
